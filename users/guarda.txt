@@ -1,0 +1,25 @@
+ .status-card {
+      position: fixed;
+      top: 10%;
+      right: 10%;
+      background-color: #F5F5F5;
+      border: 1px solid #E0E0E0;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      display: none;
+      z-index: 1000;
+      max-width: 400px;
+      width: 90%;
+      margin: 0 auto;
+      text-align: center;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .status-message.success {
+      color: green;
+    }
+
+    .status-message.error {
+      color: red;
+    }
