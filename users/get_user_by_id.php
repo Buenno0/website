@@ -1,5 +1,6 @@
 <?php
-require_once('../config/config.php');
+require_once('config/config.php');
+
 
 function get_user_by_id($id) {
   global $conn;

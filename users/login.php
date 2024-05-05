@@ -19,9 +19,10 @@
                 <input type="email" placeholder="joao@example.comn" id="email" name="email" required>
             </div>
             <div class="form-group">
-                <label for="password">Senha:</label>
-                <input type="password" id="password" name="password" required>
-            </div>
+          <label for="password">Senha:</label>
+          <input type="password" id="password" name="password" required oninput="validarSenha()">
+          <span id="passwordError" style="color: red;"></span>
+        </div>
             <button type="submit" class="btn-login">Entrar</button>
             <p class="p-no-account">Ainda não tem conta?</p>
             <a href="create_account.php" class="no-account">Crie agora</a>
@@ -33,9 +34,15 @@
 </div>
 </body>
 </html>
-
+<script src="js/validate_user.js"></script>
 <script>
     document.getElementById("signupForm").addEventListener("submit", function (event) {
+        var isPasswordValid = validarSenha();
+
+    if (!isPasswordValid) {
+      event.preventDefault(); 
+      return; // Para a execução da função
+    }
         event.preventDefault(); 
 
         var formData = new FormData(this);
@@ -63,8 +70,8 @@
             } else {
                 setTimeout(function() {
                     statusCard.style.display = "none";
-                    window.location.href = "index.php"; // Redireciona após 3 segundos
-                }, 3000);
+                    window.location.href = "../home.php"; // Redireciona após 3 segundos
+                }, 2500);
             }
         })
         .catch(error => console.error('Error:', error));
