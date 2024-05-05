@@ -22,7 +22,23 @@ function validarNome() {
   }
 }
 
+function validarSenha() {
+    var passwordInput = document.getElementById("password");
+    var passwordError = document.getElementById("passwordError");
+    var password = passwordInput.value.trim(); // Remove espaços em branco do início e do fim
 
+    if (password.length === 0) {
+      passwordError.textContent = "A senha não pode estar em branco.";
+      return false; // Retorna false se a senha estiver em branco
+    } else if (password.length < 8) {
+      passwordError.textContent = "A senha deve ter pelo menos 8 caracteres.";
+      return false; // Retorna false se a senha não atender aos critérios
+    } else {
+      passwordError.textContent = "";
+      passwordInput.value = password; // Atualiza o valor do campo de entrada com a senha limpa
+      return true; // Retorna true se a senha atender aos critérios
+    }
+  }
 
  
 
