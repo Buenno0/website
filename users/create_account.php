@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
   
 </head>
-<body>
+
 <div class="container">
   <div class="body-login">
     <div class="card-login">
@@ -41,7 +41,8 @@
 <div id="statusCard" class="status-card">
   <p id="statusMessage" class="status-message"></p>
 </div>
-</body>
+
+
 </html>
 <script src="js/validate_user.js"></script>
 <script>
@@ -85,4 +86,5 @@
       .catch(error => console.error('Error:', error));
   });
 </script>
+<?php require_once '../includes/footer.php'; ?>
 
