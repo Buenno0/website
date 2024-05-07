@@ -1,6 +1,37 @@
 <?php
 require_once('../config/config.php');
 
+
+function password_is_valid($password) {
+    // Remove espaços em branco no início e no final da senha
+    $password = trim($password);
+
+    // Verifica se a senha não está vazia e tem mais de 8 dígitos
+    return !empty($password) && strlen($password) >= 8;
+}
+
+function name_is_valid($name) {
+    // Remove espaços em branco no início e no final do nome do usuário
+    $name = trim($name);
+
+    // Verifica se o nome do usuário tem entre 3 e 15 caracteres
+    if (strlen($name) < 3 || strlen($name) > 15) {
+        return false;
+    }
+    
+    // Verifica se o nome do usuário contém apenas letras, números, ponto (.) ou sublinhado (_)
+    if (!preg_match('/^[a-zA-Z0-9._]+$/', $name)) {
+        return false;
+    }
+    
+    // Verifica se o nome do usuário contém pelo menos uma letra
+    if (!preg_match('/[a-zA-Z]/', $name)) {
+        return false;
+    }
+    
+    return true;
+}
+
 function email_is_valid($email) {
     return filter_var($email, FILTER_VALIDATE_EMAIL);
 }
@@ -55,12 +86,29 @@ function create_user($name, $password, $email) {
     }
 }
 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST["name"];
     $password = $_POST["password"];
     $email = $_POST["email"];
 
     $response = array();
+
+    if (!name_is_valid($name)) {
+        $response['success'] = false;
+        $response['message'] = "Nome de usuário inválido. Deve ter entre 3 e 15 caracteres, conter apenas letras, números, ponto (.) ou sublinhado (_), deve conter pelo menos uma letra, e não deve conter espaços no início ou no final.";
+        header('Content-Type: application/json');
+        echo json_encode($response);
+        exit();
+    }
+
+    if (!password_is_valid($password)) {
+        $response['success'] = false;
+        $response['message'] = "Senha inválida. Deve ter mais de 8 dígitos, não estar vazia e não conter espaços no início ou no final.";
+        header('Content-Type: application/json');
+        echo json_encode($response);
+        exit();
+    }
 
     if (!email_is_valid($email)) {
         $response['success'] = false;

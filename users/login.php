@@ -69,8 +69,8 @@
                 document.getElementById("password").value = "";
             } else {
                 setTimeout(function() {
-                    statusCard.style.display = "none";
-                    window.location.href = "../home.php"; // Redireciona após 3 segundos
+                statusCard.style.display = "none";
+                window.location.href = "../index.php"; // Redireciona após 3 segundos
                 }, 2500);
             }
         })

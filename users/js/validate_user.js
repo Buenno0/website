@@ -4,15 +4,15 @@ function validarNome() {
   var name = nameInput.value.trim();
 
   if (name.length < 3 || name.length > 15) {
-      nameError.textContent = "O nome deve ter entre 3 e 15 caracteres.";
+      nameError.textContent = "O nome de usuario deve ter entre 3 e 15 caracteres.";
       return false;
   } 
   else if (!/^[a-zA-Z0-9._]+$/.test(name)) {
-      nameError.textContent = "O nome deve conter apenas letras, números, ponto (.) ou sublinhado (_).";
+      nameError.textContent = "O nome de usuario deve conter apenas letras, números, ponto (.) ou sublinhado (_).";
       return false;
   } 
   else if (!/[a-zA-Z]/.test(name)) {
-      nameError.textContent = "O nome deve conter pelo menos uma letra.";
+      nameError.textContent = "O nome de usuario deve conter pelo menos uma letra.";
       return false;
   } 
   else {
