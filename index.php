@@ -9,8 +9,14 @@ require 'includes/header.php';
 </style>
 <body>
     <div class="grid">
-        <h1>Home Page</h1>
-        <section>t</section>
+        <?php
+        if(isset($name)) {
+            echo "<h1>Bem vindo, $name</h1>";
+        } else {
+            echo "<h1>Bem vindo, visitante</h1>";
+        }
+    ?>
+        <section></section>
     </div>
     
         <?php require_once 'includes/footer.php'; ?>

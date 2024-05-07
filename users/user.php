@@ -65,6 +65,24 @@ function check_email($email) {
     }
 }
 
+function check_name($name) {
+    global $conn;
+    
+    $sql = "SELECT * FROM user WHERE name = ?";
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "s", $name);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $user = mysqli_fetch_assoc($result);
+    mysqli_stmt_close($stmt);
+    
+    if ($user) {
+        return true; 
+    } else {
+        return false; 
+    }
+}
+
 function create_user($name, $password, $email) {
     global $conn;
     
@@ -121,6 +139,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (check_email($email)) {
         $response['success'] = false;
         $response['message'] = "E-mail já cadastrado.";
+        header('Content-Type: application/json');
+        echo json_encode($response);
+        exit();
+    }
+
+    if (check_name($name)) {
+        $response['success'] = false;
+        $response['message'] = "Nome de usuario já cadastrado.";
         header('Content-Type: application/json');
         echo json_encode($response);
         exit();

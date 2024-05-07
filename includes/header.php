@@ -36,11 +36,20 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["user_name"])) {
             text-decoration: none;
   
         }
+        .logo{
+            margin-left: 1%;
+            cursor: pointer;
+           
+        }
+
+       
+        
+        
     </style>
     <link rel="stylesheet" href="/website/style/style.css">
 </head>
 <header>
-    <img class="logo" src="https://img2.gratispng.com/20180715/zio/kisspng-logo-font-flame-logo-5b4b2d7c3b73e0.2237387315316535002435.jpg" alt="logo" width="75" height="50">
+    <img class="logo" src="/website/assets/logo.png" alt="logo" width="105" height="80">
     <form class="form-search" action="" method="post">
         <input type="text" class="search-box" placeholder="Pesquisar">
         <button style="display: none;">Botão</button>

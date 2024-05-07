@@ -2,4 +2,4 @@
 require_once('../config/config.php');
 session_start();
 session_destroy();
-header("Location: teste_session.php");
+header("Location: /website/index.php");
