@@ -1,5 +1,6 @@
 <?php
 require_once('../config/config.php');
+require_once('sendmail.php');
 
 
 function password_is_valid($password) {
@@ -88,16 +89,22 @@ function create_user($name, $password, $email) {
     
     // Normaliza o e-mail antes de inserir no banco de dados
     $normalized_email = normalize_email($email);
+
+    if (check_email($normalized_email)) {
+        return false; 
+    }
     
     $sql = "INSERT INTO user (name, password, email) VALUES (?, ?, ?)";
     $stmt = mysqli_prepare($conn, $sql);
     mysqli_stmt_bind_param($stmt, "sss", $name, $hashed_password, $normalized_email);
 
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+   
 
     if (mysqli_stmt_execute($stmt)) {
         mysqli_stmt_close($stmt);
         return true; 
+        
     } else {
         mysqli_stmt_close($stmt);
         return false; 
@@ -153,13 +160,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (create_user($name, $password, $email)) {
+
         $response['success'] = true;
         $response['message'] = "Usuário criado com sucesso!";
-    } else {
-        $response['success'] = false;
-        $response['message'] = "Erro ao criar usuário.";
+          
     }
-
     header('Content-Type: application/json');
     echo json_encode($response);
     exit();
