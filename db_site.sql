@@ -12,7 +12,6 @@ CREATE TABLE user (
 
 create table post (
     id int primary key auto_increment,
-    title varchar(255) not null,
     content text not null,
     user_id int not null,
     created_at timestamp default current_timestamp,

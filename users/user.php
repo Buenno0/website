@@ -1,7 +1,10 @@
 <?php
 require_once('../config/config.php');
-require_once('sendmail.php');
 
+require '../vendor/autoload.php';
+
+
+use React\EventLoop\Factory;
 
 function password_is_valid($password) {
     // Remove espaços em branco no início e no final da senha
@@ -99,12 +102,10 @@ function create_user($name, $password, $email) {
     mysqli_stmt_bind_param($stmt, "sss", $name, $hashed_password, $normalized_email);
 
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-   
 
     if (mysqli_stmt_execute($stmt)) {
         mysqli_stmt_close($stmt);
         return true; 
-        
     } else {
         mysqli_stmt_close($stmt);
         return false; 
@@ -159,14 +160,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    if (create_user($name, $password, $email)) {
+    // ... (restante do código)
 
-        $response['success'] = true;
-        $response['message'] = "Usuário criado com sucesso!";
-          
-    }
+if (create_user($name, $password, $email)) {
+    
+ 
+    $response['success'] = true;
+    $response['message'] = "Usuário criado com sucesso!";
     header('Content-Type: application/json');
-    echo json_encode($response);
+    
+}
+
+// ... (restante do código)
+echo json_encode($response);
     exit();
 }
 ?>

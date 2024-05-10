@@ -80,14 +80,14 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["user_name"])) {
             <hr class="divider">
             <ul>
                 <li>
-                    <img src="assets/help.svg" alt="Help"> Ajuda
+                    <img src="/website/assets/help.svg" alt="Help"> Ajuda
                 </li>
             </ul>
             <hr class="divider">
             <ul>
             
                 <li style="color: #E3452F;">
-                    <img src="assets/logout.svg" alt="Log Out">
+                    <img src="/website/assets/logout.svg" alt="Log Out">
                     <a class="logout" href="/website/users/logout.php">Sair</a> 
                 </li>
                 
