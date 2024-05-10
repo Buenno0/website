@@ -6,7 +6,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Supondo que $user_id seja obtido de alguma forma válida
     $user_id = $_SESSION["user_id"]; // ou outra fonte confiável
 
-    $texto = mysqli_real_escape_string($conn, $_POST['texto']);
+    $texto = $_POST['texto'];
     $query = "INSERT INTO post (content, created_at, user_id) VALUES (?, NOW(), ?)";
 
     if($stmt = mysqli_prepare($conn, $query)){
