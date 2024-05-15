@@ -240,6 +240,54 @@
             width: 43vh;
         }
     }
+    /* Para tablets */
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+    .blog {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .aside {
+        margin: 0 20px;
+        width: 50%;
+    }
+
+    .discussion {
+        width: 50%;
+    }
+
+    .post__actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 80vh;
+    }
+}
+
+/* Para desktops */
+@media only screen and (min-width: 1025px) {
+    .blog {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .aside {
+        margin: 0 20px;
+        width: 40%;
+    }
+
+    .discussion {
+        width: 60%;
+    }
+
+    .post__actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 98vh;
+    }
+}
+
     </style>
 </head>
 
