@@ -29,3 +29,10 @@ create table comment (
     foreign key (post_id) references post(id)
 );
 
+create table reports (
+    id int primary key auto_increment,
+    reason text not null,
+    post_id int not null,
+    created_at timestamp default current_timestamp,
+    foreign key (post_id) references post(id)
+);
