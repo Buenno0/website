@@ -18,6 +18,13 @@ create table post (
     foreign key (user_id) references user(id)
 );
 
+CREATE TABLE post_image (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    post_id INT NOT NULL,
+    image_path VARCHAR(255) NOT NULL,
+    FOREIGN KEY (post_id) REFERENCES post(id) ON DELETE CASCADE
+);
+
 
 create table comment (
     id int primary key auto_increment,

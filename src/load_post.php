@@ -96,6 +96,7 @@ Agradecemos sua colaboração.
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
     $(document).ready(function() {
         // Mostrar caixa de comentário ao clicar no botão de comentar
@@ -140,7 +141,7 @@ Agradecemos sua colaboração.
             });
         });
 
-        // Modal logic
+        // Modal de denúncia
         var modal = $('#reportModal');
         var span = $('.close');
 

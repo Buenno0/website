@@ -20,6 +20,7 @@
     --gray-borders: #ECF1F4;
     --gray-dark: #AEB7C2;
     --error: red;
+    --post-color: #f5f5f5;
 }
 
 .post__author {
@@ -104,6 +105,7 @@
     padding: 1rem;
     width: 100%;
     margin-bottom: 1rem;
+    
 }
 
 .avatar {
@@ -191,14 +193,21 @@
     min-height: 6rem;
     gap: 0.25rem;
     border-bottom: solid 1px var(--gray-borders);
+    background-color: var(--post-color);
+    border-radius: 0.5rem;
+    margin-bottom: 0.7rem;
+    
+
 }
 
 .newpost__toolbar {
-    justify-content: end;
+    justify-content: space-between; /* Altera o alinhamento dos botões */
     display: flex;
     gap: 0.5rem;
     padding: 0.25rem;
+    width: 100%; /* Certifica-se que o contêiner ocupe a largura total */
 }
+
 
 .newpost__toolbar button {
     border: none;
@@ -365,7 +374,74 @@ select:focus {
     padding: 0.5rem;
     margin-top: 2%;
 }
+.image-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .image-preview__item {
+            position: relative;
+            flex: 1 1 calc(33.333% - 10px); /* Three images per row */
+            max-width: calc(33.333% - 10px);
+        }
+        .image-preview__item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+        .image-preview__item button {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: red;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .button--upload {
+    background-color: transparent; /* Remove o fundo */
+    border: none; /* Remove a borda */
+    cursor: pointer;
+    padding: 0; /* Remove o padding */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
+.upload-icon {
+    width: 1.5rem; /* Ajuste o tamanho do ícone conforme necessário */
+    height: 1.5rem;
+}
+.upload-text {
+    font-family: 'Poppins', sans-serif; /* Adicione a fonte desejada */
+    font-size: 0.8rem; /* Ajuste o tamanho da fonte conforme necessário */
+    color: var(--text-green); /* Cor semelhante ao restante do site */
+    margin-left: 0.5rem; /* Ajuste o espaçamento conforme necessário */
+    font-weight: bold;
+}
+
+
+
+        @media (max-width: 768px) {
+            .image-preview__item {
+                flex: 1 1 calc(50% - 10px); /* Two images per row on medium screens */
+                max-width: calc(50% - 10px);
+            }
+        }
+        @media (max-width: 480px) {
+            .image-preview__item {
+                flex: 1 1 100%; /* One image per row on small screens */
+                max-width: 100%;
+            }
+        }
 
 
 /* Responsividade */
@@ -450,20 +526,27 @@ select:focus {
         <li><a href="#">A Importância dos Orixás na Umbanda</a></li>
         <li><a href="#">Como Preparar uma Firmeza na Umbanda</a></li>
     <hr>
-        <li><a href="#">10 Práticas Essenciais na Umbanda</a></li>
-        <li><a href="#">A Importância dos Orixás na Umbanda</a></li>
-        <li><a href="#">Como Preparar uma Firmeza na Umbanda</a></li>
     </ul>
 </aside>
     <div class="discussion">
-        <div class="discussion__header">
-            <form id="newpost__form">
-                <textarea id="text_post" tabindex="1" name="texto" cols="150" rows="4" minlength="5" required placeholder="Escreva sua postagem"></textarea>
-                <div class="newpost__toolbar">
-                    <button id="confirm-button" class="button--primary" tabindex="2" type="submit">Postar</button>
-                </div>
-            </form>
+    <div class="discussion__header">
+    <form id="newpost__form" enctype="multipart/form-data">
+        <textarea id="text_post" tabindex="1" name="texto" cols="150" rows="4" minlength="5" required placeholder="Escreva sua postagem"></textarea>
+        <input type="file" id="post_images" name="images[]" accept="image/*" multiple tabindex="3" style="display: none;">
+       
+        <div id="image_preview" class="image-preview"></div>
+        <div class="newpost__toolbar">
+        <button type="button" id="upload_button" class="button--upload">
+    <img src="../assets/upload_img.svg" alt="Upload Icon" class="upload-icon">
+    <span class="upload-text">Imagem</span>
+</button>
+
+            <button id="confirm-button" class="button--primary" tabindex="2" type="submit">Postar</button>
         </div>
+    </form>
+</div>
+
+
         <div class="discussion__posts" id="postagens">
             <!-- posts -->
         </div>
@@ -478,41 +561,5 @@ select:focus {
     </ul>
 </aside>
 </html>
-    <script>
-        $(document).ready(function(){
-            // Função para carregar as postagens
-            function loadPosts(){
-                $.ajax({
-                    url: 'load_post.php',
-                    method: 'GET',
-                    success: function(data){
-                        $('#postagens').html(data); // Atualiza o conteúdo das postagens
-                    }
-                });
-            }
 
-          
-            loadPosts();
-
-       
-            $('#newpost__form').submit(function(event){
-                event.preventDefault(); 
-
-              
-                var dados = $(this).serialize();
-
-                
-                $.ajax({
-                    url: 'send_post.php',
-                    method: 'POST',
-                    data: dados,
-                    success: function(){
-                        // Após o sucesso, carrega novamente as postagens para exibir a nova postagem
-                        loadPosts();
-                        // Limpa o campo de texto da postagem
-                        $('#text_post').val('');
-                    }
-                });
-            });
-        });
-    </script>
+<script src="blog.js"></script>
