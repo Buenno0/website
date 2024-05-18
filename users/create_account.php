@@ -70,9 +70,9 @@
         setTimeout(function() {
           statusCard.style.display = "none";
           if (data.success) {
-            window.location.href = "index.php"; // Redireciona após 3 segundos
+            window.location.href = "login.php"; // Redireciona após 3 segundos
           }
-        }, 3000);
+        }, 2000);
       })
       .catch(error => console.error('Error:', error));
   });

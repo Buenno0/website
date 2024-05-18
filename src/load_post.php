@@ -59,7 +59,6 @@ while ($row = mysqli_fetch_assoc($result)) {
 }
 ?>
 
-
 <div id="reportModal" class="modal" style="display: none;">
     <div class="modal-content">
         <span class="close">&times;</span>
@@ -94,6 +93,8 @@ Agradecemos sua colaboração.
     </div>
     
 </div>
+
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 

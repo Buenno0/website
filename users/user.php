@@ -3,10 +3,10 @@ require_once('../config/config.php');
 
 require '../vendor/autoload.php';
 
-
 use React\EventLoop\Factory;
 
-function password_is_valid($password) {
+function password_is_valid($password)
+{
     // Remove espaços em branco no início e no final da senha
     $password = trim($password);
 
@@ -14,7 +14,8 @@ function password_is_valid($password) {
     return !empty($password) && strlen($password) >= 8;
 }
 
-function name_is_valid($name) {
+function name_is_valid($name)
+{
     // Remove espaços em branco no início e no final do nome do usuário
     $name = trim($name);
 
@@ -22,25 +23,27 @@ function name_is_valid($name) {
     if (strlen($name) < 3 || strlen($name) > 15) {
         return false;
     }
-    
+
     // Verifica se o nome do usuário contém apenas letras, números, ponto (.) ou sublinhado (_)
     if (!preg_match('/^[a-zA-Z0-9._]+$/', $name)) {
         return false;
     }
-    
+
     // Verifica se o nome do usuário contém pelo menos uma letra
     if (!preg_match('/[a-zA-Z]/', $name)) {
         return false;
     }
-    
+
     return true;
 }
 
-function email_is_valid($email) {
+function email_is_valid($email)
+{
     return filter_var($email, FILTER_VALIDATE_EMAIL);
 }
 
-function normalize_email($email) {
+function normalize_email($email)
+{
     // Converte o e-mail para minúsculas e remove pontos do nome do usuário
     list($username, $domain) = explode('@', $email);
     $username = str_replace('.', '', $username);
@@ -48,12 +51,13 @@ function normalize_email($email) {
     return strtolower($email);
 }
 
-function check_email($email) {
+function check_email($email)
+{
     global $conn;
-    
+
     // Normaliza o e-mail antes de verificar no banco de dados
     $normalized_email = normalize_email($email);
-    
+
     $sql = "SELECT * FROM user WHERE email = ?";
     $stmt = mysqli_prepare($conn, $sql);
     mysqli_stmt_bind_param($stmt, "s", $normalized_email);
@@ -61,17 +65,18 @@ function check_email($email) {
     $result = mysqli_stmt_get_result($stmt);
     $user = mysqli_fetch_assoc($result);
     mysqli_stmt_close($stmt);
-    
+
     if ($user) {
-        return true; 
+        return true;
     } else {
-        return false; 
+        return false;
     }
 }
 
-function check_name($name) {
+function check_name($name)
+{
     global $conn;
-    
+
     $sql = "SELECT * FROM user WHERE name = ?";
     $stmt = mysqli_prepare($conn, $sql);
     mysqli_stmt_bind_param($stmt, "s", $name);
@@ -79,24 +84,25 @@ function check_name($name) {
     $result = mysqli_stmt_get_result($stmt);
     $user = mysqli_fetch_assoc($result);
     mysqli_stmt_close($stmt);
-    
+
     if ($user) {
-        return true; 
+        return true;
     } else {
-        return false; 
+        return false;
     }
 }
 
-function create_user($name, $password, $email) {
+function create_user($name, $password, $email)
+{
     global $conn;
-    
+
     // Normaliza o e-mail antes de inserir no banco de dados
     $normalized_email = normalize_email($email);
 
     if (check_email($normalized_email)) {
-        return false; 
+        return false;
     }
-    
+
     $sql = "INSERT INTO user (name, password, email) VALUES (?, ?, ?)";
     $stmt = mysqli_prepare($conn, $sql);
     mysqli_stmt_bind_param($stmt, "sss", $name, $hashed_password, $normalized_email);
@@ -105,10 +111,10 @@ function create_user($name, $password, $email) {
 
     if (mysqli_stmt_execute($stmt)) {
         mysqli_stmt_close($stmt);
-        return true; 
+        return true;
     } else {
         mysqli_stmt_close($stmt);
-        return false; 
+        return false;
     }
 }
 
@@ -143,7 +149,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo json_encode($response);
         exit();
     }
-    
+
     if (check_email($email)) {
         $response['success'] = false;
         $response['message'] = "E-mail já cadastrado.";
@@ -160,19 +166,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    // ... (restante do código)
+    if (create_user($name, $password, $email)) {
+        $response['success'] = true;
+        $response['message'] = "Usuário criado com sucesso!";
+        header('Content-Type: application/json');
+    }
 
-if (create_user($name, $password, $email)) {
-    
- 
-    $response['success'] = true;
-    $response['message'] = "Usuário criado com sucesso!";
-    header('Content-Type: application/json');
-    
-}
-
-// ... (restante do código)
-echo json_encode($response);
+    echo json_encode($response);
     exit();
 }
-?>

@@ -16,9 +16,13 @@ session_start();
 if (isset($_SESSION["user_id"]) && isset($_SESSION["user_name"])) {
     $id = $_SESSION["user_id"];
     $name = $_SESSION["user_name"];
+    $email = $_SESSION["user_email"];
+    $user_type = $_SESSION["user_type"];
 
+    echo "E-mail do usuário: " . $email;
     echo "ID do usuário: " . $id;
     echo "Nome do usuário: " . $name;
+    echo "Tipo do usuário: " . $user_type;
 } else {
     echo "Usuário não está logado.";
 }

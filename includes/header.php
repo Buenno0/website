@@ -3,6 +3,7 @@ session_start();
 if (isset($_SESSION["user_id"]) && isset($_SESSION["user_name"])) {
     $id = $_SESSION["user_id"];
     $name = $_SESSION["user_name"];
+    $email = $_SESSION["user_email"];
 }
 ?>
 <!DOCTYPE html>
@@ -10,42 +11,12 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["user_name"])) {
 
 <head>
     <meta charset="utf-8">
-    <title>Dropdown Menu 01</title>
+    <title>Blog</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display&display=swap" rel="stylesheet">
-    <style>
-        .search-box {
-            border: 1px solid #E5E5E5;
-            border-radius: 5px;
-            padding: 10px;
-            display: flex;
-            margin-left: 10%;
-            width: 65%;
-            background-color: white;
-
-
-        }
-        .form-search {
-            display: flex;
-            width: 100%;
-            justify-content: flex-start;
-        }
-        .logout {
-            color: #E3452F;
-            text-decoration: none;
-  
-        }
-        .logo{
-            margin-left: 1%;
-            cursor: pointer;
-           
-        }
-
-       
-        
-        
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="/website/style/style.css">
 </head>
 <header>
@@ -64,8 +35,9 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["user_name"])) {
     </span>
     <div class="dropdown__wrapper hide dropdown__wrapper--fade-in none">
         <div class="dropdown__group">
-            <div class="user-name">Mateus</div>
-            <div class="email">mat.bueno7@gmail.com</div>
+            <div class="user-name"><?=$name?></div>
+            
+            <div class="email"><?=$email?></div>
         </div>
         <hr class="divider">
         <nav>
