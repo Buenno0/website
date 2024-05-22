@@ -6,10 +6,11 @@ use Carbon\Carbon;
 date_default_timezone_set('America/Sao_Paulo');
 Carbon::setLocale('pt_BR');
 
-$query = "SELECT post.*, user.name AS author_name, COUNT(comment.id) AS comment_count
+$query = "SELECT post.*, user.name AS author_name, COUNT(comment.id) AS comment_count, GROUP_CONCAT(post_image.image_path) AS images
 FROM post
 JOIN user ON post.user_id = user.id
 LEFT JOIN comment ON post.id = comment.post_id
+LEFT JOIN post_image ON post.id = post_image.post_id
 GROUP BY post.id, user.name
 ORDER BY post.created_at DESC";
 $result = mysqli_query($conn, $query);
@@ -20,6 +21,17 @@ while ($row = mysqli_fetch_assoc($result)) {
     $timeMessage = $created_at->diffForHumans($now);
     $timeMessage = str_replace('antes', 'atrás', $timeMessage);
     $comment_count = $row['comment_count'];
+
+    // Processar as imagens
+    $images = $row['images'] ? explode(',', $row['images']) : [];
+    $imageHtml = '';
+    if (!empty($images)) {
+        $imageHtml = '<div class="image-carousel">';
+        foreach ($images as $image) {
+            $imageHtml .= "<div class=\"carousel-item\"><img src=\"{$image}\" class=\"post-image\"></div>";
+        }
+        $imageHtml .= '</div>';
+    }
 
     echo "
     <div class=\"post\" data-post-id=\"{$row['id']}\">
@@ -36,6 +48,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             <div class=\"post__text\">
                 <p class=\"p-post\">{$row['content']}</p>
             </div>
+            {$imageHtml}
             <div class=\"post__actions\">
                 <a href=\"#\" class=\"comment-button\">
                     <img class=\"comment__icon\" src=\"../assets/comment.svg\" alt=\"comentar\" class=\"action-icon\">
@@ -72,32 +85,23 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <option value="Assédio">Assédio</option>
                 <option value="Discurso de ódio">Discurso de ódio</option>
                 <option value="Desinformação">Desinformação</option>
-
                 <option value="other">Outro</option>
             </select>
-            
-    <button class="modal-button">
-        Denunciar
-    </button>
-
+            <button class="modal-button">Denunciar</button>
         </form>
         <div class="report-text">
-        <span class="span-report">
-Agradecemos por sua denúncia. Gostaríamos de informar que todas as denúncias recebidas são tratadas com a máxima seriedade por nossa equipe. Assim que uma denúncia é recebida, iniciamos imediatamente uma investigação para verificar sua veracidade.
-<br>
-Caso a denúncia seja comprovada, o conteúdo em questão será removido do site conforme nossas políticas e diretrizes. No entanto, se a denúncia não for substanciada durante nossa investigação, o conteúdo permanecerá publicado.
-<br>	
-Agradecemos sua colaboração.
-</span>
-</div>
+            <span class="span-report">
+                Agradecemos por sua denúncia. Gostaríamos de informar que todas as denúncias recebidas são tratadas com a máxima seriedade por nossa equipe. Assim que uma denúncia é recebida, iniciamos imediatamente uma investigação para verificar sua veracidade.
+                <br>
+                Caso a denúncia seja comprovada, o conteúdo em questão será removido do site conforme nossas políticas e diretrizes. No entanto, se a denúncia não for substanciada durante nossa investigação, o conteúdo permanecerá publicado.
+                <br>
+                Agradecemos sua colaboração.
+            </span>
+        </div>
     </div>
-    
 </div>
-
-
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>
     $(document).ready(function() {
         // Mostrar caixa de comentário ao clicar no botão de comentar
@@ -184,6 +188,25 @@ Agradecemos sua colaboração.
                 error: function(xhr, status, error) {
                     console.error('Erro ao enviar denúncia:', error);
                 }
+            });
+        });
+
+        // Inicializar o carrossel de imagens
+        $('.image-carousel').each(function() {
+            var carousel = $(this);
+            var items = carousel.find('.carousel-item');
+            var currentIndex = 0;
+
+            function showItem(index) {
+                items.hide();
+                items.eq(index).show();
+            }
+
+            showItem(currentIndex);
+
+            carousel.on('click', function() {
+                currentIndex = (currentIndex + 1) % items.length;
+                showItem(currentIndex);
             });
         });
     });

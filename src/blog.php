@@ -1,4 +1,29 @@
 <?php require_once('../includes/header.php'); ?>
+<style>
+ img.post-image {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    object-fit: contain;
+    margin-top: 0.5rem;
+    max-height: 31rem;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    
+}
+.image-carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+</style>
 <div class="blog">  
 <aside class="aside">
     <h2>Artigos Recentes</h2>
