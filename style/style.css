@@ -812,6 +812,8 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
+   
+    
 }
 
 .report {
@@ -944,7 +946,7 @@ select:focus {
 
 .image-preview__item {
     position: relative;
-    flex: 1 1 calc(33.333% - 10px); /* Three images per row */
+    flex: 1 1 calc(33.333% - 10px); 
     max-width: calc(33.333% - 10px);
 }
 
@@ -972,25 +974,25 @@ select:focus {
 }
 
 .button--upload {
-    background-color: transparent; /* Remove o fundo */
-    border: none; /* Remove a borda */
+    background-color: transparent;
+    border: none; 
     cursor: pointer;
-    padding: 0; /* Remove o padding */
+    padding: 0; 
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .upload-icon {
-    width: 1.5rem; /* Ajuste o tamanho do ícone conforme necessário */
+    width: 1.5rem; 
     height: 1.5rem;
 }
 
 .upload-text {
-    font-family: 'Poppins', sans-serif; /* Adicione a fonte desejada */
-    font-size: 0.8rem; /* Ajuste o tamanho da fonte conforme necessário */
-    color: var(--text-green); /* Cor semelhante ao restante do site */
-    margin-left: 0.5rem; /* Ajuste o espaçamento conforme necessário */
+    font-family: 'Poppins', sans-serif; 
+    font-size: 0.8rem; 
+    color: var(--text-green); 
+    margin-left: 0.5rem; 
     font-weight: bold;
 }
 
@@ -999,11 +1001,25 @@ img.post-image {
     max-width: 100%;
     height: auto;
     border-radius: 0.5rem;
-    object-fit: cover;
+    object-fit: contain;
     margin-top: 0.5rem;
+    max-height: 31rem;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    
+}
+.image-carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
-/* Responsividade */
+
 @media only screen and (max-width: 768px) {
     .blog {
         flex-direction: column;
@@ -1023,7 +1039,7 @@ img.post-image {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        width: 43vh;
+        width: 39vh;
     }
     .p-post {
         font-size: 1.2rem;
@@ -1075,3 +1091,4 @@ img.post-image {
         width: 98vh;
     }
 }
+
