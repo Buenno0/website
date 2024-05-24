@@ -995,7 +995,6 @@ select:focus {
     margin-left: 0.5rem; 
     font-weight: bold;
 }
-
 img.post-image {
     width: 100%;
     max-width: 100%;
@@ -1007,17 +1006,85 @@ img.post-image {
     cursor: pointer;
     border: 1px solid #ccc;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    
 }
+
 .image-carousel {
     display: flex;
-    overflow-x: auto;
+    overflow-x: hidden;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     gap: 0.5rem;
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
+    position: relative;
 }
+
+.carousel-item {
+    scroll-snap-align: start;
+}
+
+.carousel-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.5rem;
+    width: 45em;
+}
+
+
+.carousel-nav button {
+    background-color: var(--text-green);
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    padding: 0.7rem;
+    cursor: pointer;
+    color: white;
+    width: 2.3rem;
+    opacity: 70%;
+}
+.carousel-nav button:hover {
+    background-color: var(--gray-light);
+    color: black;
+}
+
+.image-counter {
+    font-size: 0.9rem;
+}
+
+.image-modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+.image-modal .modal-content {
+    max-width: 90%;
+    max-height: 90%;
+}
+
+.image-modal .close-modal {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+@media only screen and (max-width: 768px) {
+    .carousel-nav {
+        width: 100%;
+    }
+}
+
 
 
 @media only screen and (max-width: 768px) {
@@ -1028,6 +1095,9 @@ img.post-image {
 
     .aside {
         margin: 0;
+        width: 100%;
+    }
+    .carousel-nav {
         width: 100%;
     }
 
@@ -1088,7 +1158,7 @@ img.post-image {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        width: 98vh;
+        width: 115vh;
     }
 }
 

@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once('../config/config.php');
 require '../vendor/autoload.php';
 
@@ -25,14 +26,20 @@ while ($row = mysqli_fetch_assoc($result)) {
     // Processar as imagens
     $images = $row['images'] ? explode(',', $row['images']) : [];
     $imageHtml = '';
-    if (!empty($images)) {
-        $imageHtml = '<div class="image-carousel">';
-        foreach ($images as $image) {
-            $imageHtml .= "<div class=\"carousel-item\"><img src=\"{$image}\" class=\"post-image\"></div>";
+    if (count($images) > 0) {
+        if (count($images) > 1) {
+            $imageHtml = '<div class="image-carousel">';
+            foreach ($images as $index => $image) {
+                $imageHtml .= "<div class=\"carousel-item\"><img src=\"{$image}\" class=\"post-image\" data-index=\"{$index}\"></div>";
+            }
+            $imageHtml .= '</div>';
+            $imageHtml .= '<div class="carousel-nav"><button class="prev-btn">❮</button><span class="image-counter"></span><button class="next-btn">❯</button></div>';
+        } else {
+            $imageHtml = "<div class=\"single-image\"><img src=\"{$images[0]}\" class=\"post-image\"></div>";
         }
-        $imageHtml .= '</div>';
+        $imageHtml .= '<div class="image-modal" style="display: none;"><span class="close-modal">&times;</span><img class="modal-content"></div>';
     }
-
+    $is_logged_in = isset($_SESSION['user_id']) ? 'true' : 'false';
     echo "
     <div class=\"post\" data-post-id=\"{$row['id']}\">
         <div class=\"avatar\">
@@ -50,12 +57,12 @@ while ($row = mysqli_fetch_assoc($result)) {
             </div>
             {$imageHtml}
             <div class=\"post__actions\">
-                <a href=\"#\" class=\"comment-button\">
+                <a href=\"#\" class=\"comment-button\" data-logged-in=\"{$is_logged_in}\">
                     <img class=\"comment__icon\" src=\"../assets/comment.svg\" alt=\"comentar\" class=\"action-icon\">
                     <span class=\"comment-count\">{$comment_count}</span>
                 </a>
                 <div class=\"report\">
-                    <a href=\"#\" class=\"report-button\">
+                    <a href=\"#\" class=\"report-button\" data-logged-in=\"{$is_logged_in}\">
                         <img class=\"report__icon\" src=\"../assets/report.svg\" alt=\"denunciar\" class=\"action-icon report-icon\">
                     </a>
                 </div>
@@ -72,7 +79,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 }
 ?>
 
-<div id="reportModal" class="modal" style="display: none;">
+<div id="reportModal" class="modal" data-logged-in="<?=$is_logged_in?>" style="display: none;">
     <div class="modal-content">
         <span class="close">&times;</span>
         <h2 class="h2-report">Denunciar Postagem</h2>
@@ -103,111 +110,146 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function() {
-        // Mostrar caixa de comentário ao clicar no botão de comentar
-        $('.comment-button').click(function(e) {
-            e.preventDefault();
-            $(this).closest('.post').find('.comment-box').show();
+   $(document).ready(function() {
+    // Mostrar caixa de comentário ao clicar no botão de comentar
+    $('.comment-button').click(function(e) {
+        e.preventDefault();
+        var isLoggedIn = $(this).attr('data-logged-in') === 'true';
+
+        if (!isLoggedIn) {
+            window.location.href = '/website/users/login.php';
+            return;
+        }
+
+        $(this).closest('.post').find('.comment-box').show();
+    });
+
+    // Enviar comentário ao clicar no botão de enviar
+    $('.comment-send').click(function() {
+        var commentBox = $(this).closest('.comment-box');
+        var comment = commentBox.find('.comment-text').val();
+        var post_id = $(this).closest('.post').data('post-id');
+
+        // Enviar comentário para o servidor via AJAX
+        $.ajax({
+            url: 'insert_comment.php',
+            type: 'POST',
+            data: {
+                post_id: post_id,
+                comment: comment
+            },
+            success: function(response) {
+                console.log(response);
+
+                commentBox.find('.comment-text').val('');
+                commentBox.hide();
+
+                var successMessage = commentBox.closest('.post').find('.success-message');
+                successMessage.show();
+                setTimeout(function() {
+                    successMessage.hide();
+                }, 1500);
+
+                var commentCountElem = commentBox.closest('.post').find('.comment-count');
+                var commentCount = parseInt(commentCountElem.text());
+                commentCountElem.text(commentCount + 1);
+            },
+            error: function(xhr, status, error) {
+                console.error('Erro ao enviar comentário:', error);
+            }
+        });
+    });
+
+    // Modal de denúncia
+    var modal = $('#reportModal');
+    var span = $('.close');
+
+    $('.report-button').click(function(e) {
+        e.preventDefault();
+        var isLoggedIn = $(this).attr('data-logged-in') === 'true';
+        if (!isLoggedIn) {
+            window.location.href = '/website/users/login.php';
+            return;
+        }
+        var postId = $(this).closest('.post').data('post-id');
+        $('#reportPostId').val(postId);
+        modal.show();
+    });
+
+    span.click(function() {
+        modal.hide();
+    });
+
+    $(window).click(function(event) {
+        if ($(event.target).is(modal)) {
+            modal.hide();
+        }
+    });
+
+    // Enviar denúncia ao servidor via AJAX
+    $('#reportForm').submit(function(e) {
+        e.preventDefault();
+        var post_id = $('#reportPostId').val();
+        var reason = $('#reportReason').val();
+
+        $.ajax({
+            url: 'report_post.php',
+            type: 'POST',
+            data: {
+                post_id: post_id,
+                reason: reason
+            },
+            success: function(response) {
+                console.log(response);
+                modal.hide();
+                alert('Denúncia enviada com sucesso!');
+            },
+            error: function(xhr, status, error) {
+                console.error('Erro ao enviar denúncia:', error);
+            }
+        });
+    });
+
+    // Inicializar o carrossel de imagens
+    $('.image-carousel').each(function() {
+        var carousel = $(this);
+        var items = carousel.find('.carousel-item');
+        var currentIndex = 0;
+        var totalImages = items.length;
+
+        var imageCounter = carousel.next('.carousel-nav').find('.image-counter');
+        imageCounter.text((currentIndex + 1) + ' / ' + totalImages);
+
+        function showItem(index) {
+            items.hide();
+            items.eq(index).show();
+            imageCounter.text((index + 1) + ' / ' + totalImages);
+        }
+
+        showItem(currentIndex);
+
+        carousel.next('.carousel-nav').find('.prev-btn').click(function() {
+            currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+            showItem(currentIndex);
         });
 
-        // Enviar comentário ao clicar no botão de enviar
-        $('.comment-send').click(function() {
-            var commentBox = $(this).closest('.comment-box');
-            var comment = commentBox.find('.comment-text').val();
-            var post_id = $(this).closest('.post').data('post-id');
-
-            // Enviar comentário para o servidor via AJAX
-            $.ajax({
-                url: 'insert_comment.php',
-                type: 'POST',
-                data: {
-                    post_id: post_id,
-                    comment: comment
-                },
-                success: function(response) {
-                    console.log(response);
-
-                    commentBox.find('.comment-text').val('');
-                    commentBox.hide();
-
-                    var successMessage = commentBox.closest('.post').find('.success-message');
-                    successMessage.show();
-                    setTimeout(function() {
-                        successMessage.hide();
-                    }, 1500);
-
-                    var commentCountElem = commentBox.closest('.post').find('.comment-count');
-                    var commentCount = parseInt(commentCountElem.text());
-                    commentCountElem.text(commentCount + 1);
-                },
-                error: function(xhr, status, error) {
-                    console.error('Erro ao enviar comentário:', error);
-                }
-            });
+        carousel.next('.carousel-nav').find('.next-btn').click(function() {
+            currentIndex = (currentIndex + 1) % totalImages;
+            showItem(currentIndex);
         });
 
-        // Modal de denúncia
-        var modal = $('#reportModal');
-        var span = $('.close');
-
-        $('.report-button').click(function(e) {
-            e.preventDefault();
-            var postId = $(this).closest('.post').data('post-id');
-            $('#reportPostId').val(postId);
+        // Ampliar imagem ao clicar
+        carousel.find('.post-image').click(function() {
+            var src = $(this).attr('src');
+            var modal = $(this).closest('.post').find('.image-modal');
+            modal.find('.modal-content').attr('src', src);
             modal.show();
         });
 
-        span.click(function() {
-            modal.hide();
-        });
-
-        $(window).click(function(event) {
-            if ($(event.target).is(modal)) {
-                modal.hide();
-            }
-        });
-
-        // Enviar denúncia ao servidor via AJAX
-        $('#reportForm').submit(function(e) {
-            e.preventDefault();
-            var post_id = $('#reportPostId').val();
-            var reason = $('#reportReason').val();
-
-            $.ajax({
-                url: 'report_post.php',
-                type: 'POST',
-                data: {
-                    post_id: post_id,
-                    reason: reason
-                },
-                success: function(response) {
-                    console.log(response);
-                    modal.hide();
-                    alert('Denúncia enviada com sucesso!');
-                },
-                error: function(xhr, status, error) {
-                    console.error('Erro ao enviar denúncia:', error);
-                }
-            });
-        });
-
-        // Inicializar o carrossel de imagens
-        $('.image-carousel').each(function() {
-            var carousel = $(this);
-            var items = carousel.find('.carousel-item');
-            var currentIndex = 0;
-
-            function showItem(index) {
-                items.hide();
-                items.eq(index).show();
-            }
-
-            showItem(currentIndex);
-
-            carousel.on('click', function() {
-                currentIndex = (currentIndex + 1) % items.length;
-                showItem(currentIndex);
-            });
+        // Fechar modal
+        $('.close-modal').click(function() {
+            $(this).closest('.image-modal').hide();
         });
     });
+});
 </script>
