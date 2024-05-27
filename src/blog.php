@@ -1,5 +1,6 @@
 <?php require_once('../includes/header.php'); ?>
 <style>
+   
 </style>
 <div class="blog">  
 <aside class="aside">
