@@ -1,6 +1,40 @@
 <?php require_once('../includes/header.php'); ?>
 <style>
-   
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    padding-top: 60px; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; 
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
 </style>
 <div class="blog">  
 <aside class="aside">
@@ -43,5 +77,41 @@
         <li><a href="#">Notícia: Celebração de Ogum no Terreiro X</a></li>
     </ul>
 </aside>
+<div id="rulesModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Regras da Comunidade</h2>
+        <p>Bem-vindo ao nosso espaço de discussão <span style="color: red;">respeitosa</span> e <span style="color: red;">inter-religiosa</span>. Por favor, siga estas regras:</p>
+        <ul>
+            <li>Postagens contendo <span style="color: red;">intolerância religiosa</span> serão excluídas.</li>
+            <li><span style="color: red;">Discursos de ódio</span>, <span style="color: red;">discriminação</span> e <span style="color: red;">insultos</span> não serão tolerados.</li>
+            <li><span style="color: red;">Respeite</span> as opiniões e crenças dos outros.</li>
+            <li>Promova um ambiente de <span style="color: red;">diálogo construtivo</span> e <span style="color: red;">inclusivo</span>.</li>
+        </ul>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var modal = document.getElementById("rulesModal");
+    var span = document.getElementsByClassName("close")[0];
+
+    // Verifica se o modal já foi exibido
+    if (!localStorage.getItem("rulesModalDisplayed")) {
+        modal.style.display = "block";
+        localStorage.setItem("rulesModalDisplayed", "true");
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+});
+</script>
 </html>
 <script src="blog.js"></script>

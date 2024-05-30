@@ -281,29 +281,37 @@ $(document).ready(function() {
 
     // Excluir postagem ao clicar no botão de excluir
     $('.delete-button').click(function(e) {
-        e.preventDefault();
-        var post_id = $(this).attr('data-post-id');
+    e.preventDefault();
+    var post_id = $(this).attr('data-post-id');
 
-        if (confirm('Você tem certeza de que deseja excluir esta postagem?')) {
-            // Enviar pedido para excluir postagem via AJAX
-            $.ajax({
-                url: 'delete_post.php',
-                type: 'POST',
-                data: { post_id: post_id },
-                success: function(response) {
-                    console.log(response);
-                    if (response.success) {
+    if (confirm('Você tem certeza de que deseja excluir esta postagem?')) {
+        // Enviar pedido para excluir postagem via AJAX
+        $.ajax({
+            url: 'delete_post.php',
+            type: 'POST',
+            data: { post_id: post_id },
+            success: function(response) {
+                try {
+                    var result = JSON.parse(response);
+                    if (result.success) {
+                        // Remover o post do DOM
                         $('div.post[data-post-id="' + post_id + '"]').remove();
                         alert('Postagem excluída com sucesso!');
                     } else {
-                        alert('Erro ao excluir postagem: ' + response.error);
+                        alert('Erro ao excluir postagem: ' + result.error);
                     }
-                },
-                error: function(xhr, status, error) {
-                    console.error('Erro ao excluir postagem:', error);
+                } catch (error) {
+                    console.error('Erro ao processar resposta:', error);
+                    alert('Erro inesperado. Por favor, tente novamente.');
                 }
-            });
-        }
-    });
+            },
+            error: function(xhr, status, error) {
+                console.error('Erro ao excluir postagem:', error);
+                alert('Erro ao excluir postagem. Por favor, tente novamente.');
+            }
+        });
+    }
+});
+
 });
 </script>
