@@ -14,7 +14,7 @@
     background-color: rgba(0,0,0,0.4); 
 }
 
-.modal-content {
+.modal-content-rules {
     background-color: #fefefe;
     margin: 5% auto; 
     padding: 20px;
@@ -78,7 +78,7 @@
     </ul>
 </aside>
 <div id="rulesModal" class="modal">
-    <div class="modal-content">
+    <div class="modal-content-rules">
         <span class="close">&times;</span>
         <h2>Regras da Comunidade</h2>
         <p>Bem-vindo ao nosso espaço de discussão <span style="color: red;">respeitosa</span> e <span style="color: red;">inter-religiosa</span>. Por favor, siga estas regras:</p>
