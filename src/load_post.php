@@ -10,7 +10,7 @@ Carbon::setLocale('pt_BR');
 // Assume that the session contains user_id
 $logged_in_user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 
-$query = "SELECT post.*, user.name AS author_name, user.id AS author_id, COUNT(comment.id) AS comment_count, GROUP_CONCAT(post_image.image_path) AS images
+$query = "SELECT post.*, user.name AS author_name, user.id AS author_id, COUNT(DISTINCT comment.id) AS comment_count, GROUP_CONCAT(DISTINCT post_image.image_path) AS images
 FROM post
 JOIN user ON post.user_id = user.id
 LEFT JOIN comment ON post.id = comment.post_id
@@ -27,7 +27,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     $comment_count = $row['comment_count'];
 
     // Processar as imagens
-    $images = $row['images'] ? explode(',', $row['images']) : [];
+    $images = $row['images'] ? array_unique(explode(',', $row['images'])) : [];
     $imageHtml = '';
     if (count($images) > 0) {
         if (count($images) > 1) {
@@ -58,7 +58,6 @@ while ($row = mysqli_fetch_assoc($result)) {
         </a>
     </div>
 ";
-
 
     echo "
     <div class=\"post\" data-post-id=\"{$row['id']}\">
@@ -94,38 +93,9 @@ while ($row = mysqli_fetch_assoc($result)) {
     </div>";
 }
 ?>
-
-<div id="reportModal" class="modal" data-logged-in="<?=$is_logged_in?>" style="display: none;">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2 class="h2-report">Denunciar Postagem</h2>
-        <form id="reportForm">
-            <input type="hidden" id="reportPostId" name="post_id">
-            <label for="reportReason">Motivo:</label>
-            <select id="reportReason" name="reason" required>
-                <option value="spam">Spam</option>
-                <option value="Violência">Violência</option>
-                <option value="Assédio">Assédio</option>
-                <option value="Discurso de ódio">Discurso de ódio</option>
-                <option value="Desinformação">Desinformação</option>
-                <option value="other">Outro</option>
-            </select>
-            <button class="modal-button">Denunciar</button>
-        </form>
-        <div class="report-text">
-            <span class="span-report">
-                Agradecemos por sua denúncia. Gostaríamos de informar que todas as denúncias recebidas são tratadas com a máxima seriedade por nossa equipe. Assim que uma denúncia é recebida, iniciamos imediatamente uma investigação para verificar sua veracidade.
-                <br>
-                Caso a denúncia seja comprovada, o conteúdo em questão será removido do site conforme nossas políticas e diretrizes. No entanto, se a denúncia não for substanciada durante nossa investigação, o conteúdo permanecerá publicado.
-                <br>
-                Agradecemos sua colaboração.
-            </span>
-        </div>
-    </div>
-</div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-$(document).ready(function() {
+    $(document).ready(function() {
     function linkify(text) {
         var urlPattern = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
         return text.replace(urlPattern, '<a href="$1" class="post-link" target="_blank">$1</a>');
@@ -281,37 +251,36 @@ $(document).ready(function() {
 
     // Excluir postagem ao clicar no botão de excluir
     $('.delete-button').click(function(e) {
-    e.preventDefault();
-    var post_id = $(this).attr('data-post-id');
+        e.preventDefault();
+        var post_id = $(this).attr('data-post-id');
 
-    if (confirm('Você tem certeza de que deseja excluir esta postagem?')) {
-        // Enviar pedido para excluir postagem via AJAX
-        $.ajax({
-            url: 'delete_post.php',
-            type: 'POST',
-            data: { post_id: post_id },
-            success: function(response) {
-                try {
-                    var result = JSON.parse(response);
-                    if (result.success) {
-                        // Remover o post do DOM
-                        $('div.post[data-post-id="' + post_id + '"]').remove();
-                        alert('Postagem excluída com sucesso!');
-                    } else {
-                        alert('Erro ao excluir postagem: ' + result.error);
+        if (confirm('Você tem certeza de que deseja excluir esta postagem?')) {
+            // Enviar pedido para excluir postagem via AJAX
+            $.ajax({
+                url: 'delete_post.php',
+                type: 'POST',
+                data: { post_id: post_id },
+                success: function(response) {
+                    try {
+                        var result = JSON.parse(response);
+                        if (result.success) {
+                            // Remover o post do DOM
+                            $('div.post[data-post-id="' + post_id + '"]').remove();
+                            alert('Postagem excluída com sucesso!');
+                        } else {
+                            alert('Erro ao excluir postagem: ' + result.error);
+                        }
+                    } catch (error) {
+                        console.error('Erro ao processar resposta:', error);
+                        alert('Erro inesperado. Por favor, tente novamente.');
                     }
-                } catch (error) {
-                    console.error('Erro ao processar resposta:', error);
-                    alert('Erro inesperado. Por favor, tente novamente.');
+                },
+                error: function(xhr, status, error) {
+                    console.error('Erro ao excluir postagem:', error);
+                    alert('Erro ao excluir postagem. Por favor, tente novamente.');
                 }
-            },
-            error: function(xhr, status, error) {
-                console.error('Erro ao excluir postagem:', error);
-                alert('Erro ao excluir postagem. Por favor, tente novamente.');
-            }
-        });
-    }
-});
-
+            });
+        }
+    });
 });
 </script>
