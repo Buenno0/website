@@ -59,38 +59,38 @@ while ($row = mysqli_fetch_assoc($result)) {
     </div>
 ";
 
-    echo "
-    <div class=\"post\" data-post-id=\"{$row['id']}\">
-        <div class=\"avatar\">
-            <img class=\"avatar img\" src=\"../assets/user-profile.svg\">
+echo "
+<div class=\"post\" data-post-id=\"{$row['id']}\">
+    <div class=\"avatar\">
+        <img class=\"avatar img\" src=\"../assets/user-profile.svg\">
+    </div>
+    <div class=\"post__body\">
+        <div class=\"post__author\">
+            <strong>{$row['author_name']}</strong>
+            <time datetime=\"{$row['created_at']}\" class=\"post__date\">
+                {$timeMessage}
+            </time>
         </div>
-        <div class=\"post__body\">
-            <div class=\"post__author\">
-                <strong>{$row['author_name']}</strong>
-                <time datetime=\"{$timeMessage}\" class=\"post__date\">
-                    {$timeMessage}
-                </time>
-            </div>
-            <div class=\"post__text\">
-                <p class=\"p-post\">{$row['content']}</p>
-            </div>
-            {$imageHtml}
-            <div class=\"post__actions\">
-                <a href=\"#\" class=\"comment-button\" data-logged-in=\"{$is_logged_in}\">
-                    <img class=\"comment__icon\" src=\"../assets/comment.svg\" alt=\"comentar\" class=\"action-icon\">
-                    <span class=\"comment-count\">{$comment_count}</span>
-                </a>
-                {$reportOrDeleteButton}
-            </div>
-            <div class=\"comment-box\" style=\"display: none;\">
-                <textarea class=\"comment-text\" placeholder=\"Escreva seu comentário\"></textarea>
-                <button class=\"comment-send\">Responder</button>
-            </div>
-            <div class=\"success-message\" style=\"display: none;\">
-                Comentário enviado com sucesso!
-            </div>
+        <a class=\"post__text\" href=\"#\">
+            <p class=\"p-post\">{$row['content']}</p>
+        </a>
+        {$imageHtml}
+        <div class=\"post__actions\">
+            <a href=\"#\" class=\"comment-button\" data-logged-in=\"{$is_logged_in}\">
+                <img class=\"comment__icon\" src=\"../assets/comment.svg\" alt=\"comentar\" class=\"action-icon\">
+                <span class=\"comment-count\">{$comment_count}</span>
+            </a>
+            {$reportOrDeleteButton}
         </div>
-    </div>";
+        <div class=\"comment-box\" style=\"display: none;\">
+            <textarea class=\"comment-text\" placeholder=\"Escreva seu comentário\"></textarea>
+            <button class=\"comment-send\">Responder</button>
+        </div>
+        <div class=\"success-message\" style=\"display: none;\">
+            Comentário enviado com sucesso!
+        </div>
+    </div>
+</div>";
 }
 ?>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -282,5 +282,24 @@ while ($row = mysqli_fetch_assoc($result)) {
             });
         }
     });
+    $('.post__text').on('click', function(e) {
+        e.preventDefault();
+        var postId = $(this).closest('.post').data('post-id');
+        fetchPostById(postId);
+    });
+
+    function fetchPostById(postId) {
+        $.ajax({
+            url: 'get_post_by_id.php',
+            type: 'GET',
+            data: { post_id: postId },
+            success: function(response) {
+                $('#postagens').html(response);
+            },
+            error: function(xhr, status, error) {
+                console.error('Erro ao buscar postagem:', error);
+            }
+        });
+    }
 });
 </script>

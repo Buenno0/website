@@ -202,9 +202,6 @@ nav > ul > li {
     width: 100%;
 }
 
-
-
-
 nav > ul > li > img {
     height: 24px;
     width: 24px;
@@ -214,14 +211,6 @@ nav > ul > li:hover {
     cursor: pointer;
     text-decoration: underline;
 }
-
-
-
-
-
-
-
-
 
 .status-card {
     position: fixed;
@@ -872,7 +861,7 @@ img.delete__icon:hover {
 .comment-button {
     display: flex;
     align-items: center;
-    gap: 0.25rem; /* Espaço entre o ícone e o contador */
+    gap: 0.25rem; 
 }
 
 .comment-count {
@@ -880,6 +869,56 @@ img.delete__icon:hover {
     font-family: Arial, Helvetica, sans-serif;
     color: var(--gray-dark);
 }
+.comments {
+    margin-top: 20px;
+}
+.comment {
+    display: flex;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+.comment .avatar {
+    margin-right: 10px;
+}
+.comment .avatar img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.comment__body {
+    flex: 1;
+}
+.comment__author {
+    color: #333;
+    font-size: smaller;
+    
+}
+.comment__date {
+    font-size: 0.875em;
+    color: #777;
+}
+.comment__text {
+    margin-top: 5px;
+    line-height: 1.5;
+    color: #444;
+}
+.comment-box {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.comment-text {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    resize: none;
+    margin-bottom: 10px;
+}
+
+
 
 /* Estilos para o modal */
 .modal {
@@ -908,6 +947,22 @@ img.delete__icon:hover {
     float: right;
     font-size: 28px;
     font-weight: bold;
+}
+
+.modal-content-rules {
+    background-color: #fefefe;
+    margin: 5% auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; 
+}
+
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .h2-report {

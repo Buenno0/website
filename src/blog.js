@@ -1,7 +1,7 @@
-$(document).ready(function(){
+$(document).ready(function() {
     
-     // Mostrar caixa de comentário ao clicar no botão de comentar
-     $('.comment-button').click(function(e) {
+    // Mostrar caixa de comentário ao clicar no botão de comentar
+    $('.comment-button').click(function(e) {
         e.preventDefault();
         $(this).closest('.post').find('.comment-box').show();
     });
@@ -9,8 +9,14 @@ $(document).ready(function(){
     // Enviar comentário ao clicar no botão de enviar
     $('.comment-send').click(function() {
         var commentBox = $(this).closest('.comment-box');
-        var comment = commentBox.find('.comment-text').val();
+        var comment = commentBox.find('.comment-text').val().trim();
         var post_id = $(this).closest('.post').data('post-id');
+
+        // Verificar se o comentário não está vazio
+        if (comment === '') {
+            customAlert('Por favor, insira um comentário válido.');
+            return;
+        }
 
         // Enviar comentário para o servidor via AJAX
         $.ajax({
@@ -86,6 +92,7 @@ $(document).ready(function(){
             }
         });
     });
+
     function loadPosts(){
         $('#postagens').hide(); // Esconde os posts enquanto carrega
 
@@ -104,12 +111,19 @@ $(document).ready(function(){
 
     loadPosts();
 
-    $('#upload_button').click(function(){
+    $('#upload_button').click(function() {
         $('#post_images').click();
     });
 
-    $('#newpost__form').submit(function(event){
-        event.preventDefault(); 
+    $('#newpost__form').submit(function(event) {
+        event.preventDefault();
+
+        var postText = $('#text_post').val().trim();
+
+        if (postText === '') {
+            customAlert('Por favor, insira um texto válido.');
+            return;
+        }
 
         var formData = new FormData(this);
 
@@ -124,7 +138,7 @@ $(document).ready(function(){
             data: formData,
             contentType: false,
             processData: false,
-            success: function(){
+            success: function() {
                 loadPosts(); // Carrega novamente as postagens
                 $('#text_post').val(''); // Limpa o campo de texto da postagem
                 $('#post_images').val(''); // Limpa o campo de upload de imagens
@@ -183,4 +197,26 @@ $(document).ready(function(){
             document.body.removeChild(notification);
         }, 3000); 
     }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var modal = document.getElementById("rulesModal");
+        var span = document.getElementsByClassName("close")[0];
+
+        // Verifica se o modal já foi exibido
+        if (!localStorage.getItem("rulesModalDisplayed")) {
+            modal.style.display = "block";
+            localStorage.setItem("rulesModalDisplayed", "true");
+        }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    });
+
 });

@@ -1,40 +1,6 @@
 <?php require_once('../includes/header.php'); ?>
 <style>
-.modal {
-    display: none; 
-    position: fixed; 
-    z-index: 1; 
-    padding-top: 60px; 
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgb(0,0,0); 
-    background-color: rgba(0,0,0,0.4); 
-}
-
-.modal-content-rules {
-    background-color: #fefefe;
-    margin: 5% auto; 
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; 
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
+/* Seu estilo aqui */
 </style>
 <div class="blog">  
 <aside class="aside">
@@ -50,7 +16,7 @@
     <?php if (isset($_SESSION['user_id'])): ?>
     <div class="discussion__header">
         <form id="newpost__form" enctype="multipart/form-data">
-            <textarea id="text_post" tabindex="1" name="texto" cols="150" rows="4" minlength="5" required placeholder="Escreva sua postagem"></textarea>
+            <textarea id="text_post" tabindex="1" name="texto" cols="150" rows="4" required placeholder="No que você está pensando?"></textarea>
             <input type="file" id="post_images" name="images[]" accept="image/*" multiple tabindex="3" style="display: none;">    
             <div id="image_preview" class="image-preview"></div>
             <div class="newpost__toolbar">
@@ -90,28 +56,21 @@
         </ul>
     </div>
 </div>
-
+</div>
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    var modal = document.getElementById("rulesModal");
-    var span = document.getElementsByClassName("close")[0];
+    document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('newpost__form');
+    const textPost = document.getElementById('text_post');
+    const confirmButton = document.getElementById('confirm-button');
 
-    // Verifica se o modal já foi exibido
-    if (!localStorage.getItem("rulesModalDisplayed")) {
-        modal.style.display = "block";
-        localStorage.setItem("rulesModalDisplayed", "true");
-    }
-
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
+    form.addEventListener('submit', function(event) {
+        if (textPost.value.trim() === '') {
+            event.preventDefault();
+            alert('Por favor, insira um texto válido.');
         }
-    }
+    });
 });
+
 </script>
-</html>
 <script src="blog.js"></script>
+<?php require_once('../includes/footer.php'); ?>
