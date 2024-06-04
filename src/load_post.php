@@ -93,6 +93,34 @@ echo "
 </div>";
 }
 ?>
+<div id="reportModal" class="modal" data-logged-in="<?=$is_logged_in?>" style="display: none;">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 class="h2-report">Denunciar Postagem</h2>
+        <form id="reportForm">
+            <input type="hidden" id="reportPostId" name="post_id">
+            <label for="reportReason">Motivo:</label>
+            <select id="reportReason" name="reason" required>
+                <option value="spam">Spam</option>
+                <option value="Violência">Violência</option>
+                <option value="Assédio">Assédio</option>
+                <option value="Discurso de ódio">Discurso de ódio</option>
+                <option value="Desinformação">Desinformação</option>
+                <option value="other">Outro</option>
+            </select>
+            <button class="modal-button">Denunciar</button>
+        </form>
+        <div class="report-text">
+            <span class="span-report">
+                Agradecemos por sua denúncia. Gostaríamos de informar que todas as denúncias recebidas são tratadas com a máxima seriedade por nossa equipe. Assim que uma denúncia é recebida, iniciamos imediatamente uma investigação para verificar sua veracidade.
+                <br>
+                Caso a denúncia seja comprovada, o conteúdo em questão será removido do site conforme nossas políticas e diretrizes. No entanto, se a denúncia não for substanciada durante nossa investigação, o conteúdo permanecerá publicado.
+                <br>
+                Agradecemos sua colaboração.
+            </span>
+        </div>
+    </div>
+</div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
