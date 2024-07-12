@@ -4,17 +4,12 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["user_name"])) {
     $id = $_SESSION["user_id"];
     $name = $_SESSION["user_name"];
     $email = $_SESSION["user_email"];
+    $user_type = $_SESSION["user_type"];
 }
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <style>
-        .a-menu {
-            color: #000;
-            text-decoration: none;
-        }
-    </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog</title>
@@ -58,9 +53,11 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["user_name"])) {
                 <li>
                     <img src="/website/assets/profile.svg" alt="Profile"><a class="a-menu" href="/website/users/my_account.php"> Minha Conta</a>
                 </li>
-                <li>
-                    <img src="/website/assets/settings.svg" alt="Settings"><a class="a-menu" href="test.php"> Ajustes da Conta</a>
-                </li>
+                <?php if ($user_type == 'adm') : ?>
+                    <li>
+                        <img src="/website/assets/settings.svg" alt="Settings"><a class="a-menu" href="/website/admin/adm_dashboard.php"> Admnistração</a>
+                    </li>
+                <?php endif; ?>
             </ul>
             <hr class="divider">
             <ul>

@@ -38,7 +38,7 @@
     <aside class="aside">
     <h2>Recursos Recomendados</h2>
     <ul>
-        <li><a href="#">Livro: Fundamentos da Umbanda</a></li>
+        <li><a href="https://madras.com.br/pdf/iniciacao-umbanda.pdf">Livro: Iniciacão á Umbanda</a></li>
         <li><a href="#">Vídeo: Introdução aos Orixás</a></li>
         <li><a href="#">Notícia: Celebração de Ogum no Terreiro X</a></li>
     </ul>
