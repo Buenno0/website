@@ -232,7 +232,7 @@ nav > ul > li > img {
 
 nav > ul > li:hover {
     cursor: pointer;
-    text-decoration: underline;
+    
 }
 
 .status-card {
