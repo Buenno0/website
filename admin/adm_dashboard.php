@@ -28,28 +28,61 @@ $sql = "SELECT
 $result = $conn->query($sql);
 ?>
 <style>
-    body {
-        font-family: Arial, sans-serif;
+    .report-span{
+        color: var(--error);
     }
     .report-card {
+        background-color: #fff;
         border: 1px solid #ccc;
-        padding: 16px;
-        margin-bottom: 16px;
         border-radius: 8px;
+        margin-bottom: 20px;
+        padding: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    .report-details, .user-info {
-        margin-bottom: 12px;
+    .report-card h2 {
+        margin-bottom: 15px;
+        color: #333;
+    }
+    .report-card p,
+    .report-card .report-details div,
+    .report-card .user-info div {
+        margin-bottom: 15px;
+        color: #666;
+    }
+    .report-details div,
+    .user-info div {
+        padding: 5px 0;
     }
     .button-container {
-        margin-top: 12px;
+        margin-top: 20px;
     }
     .delete-button {
-        background-color: red;
+        background-color: var(--error);
         color: white;
         border: none;
-        padding: 8px 12px;
+        padding: 10px 15px;
         border-radius: 4px;
         cursor: pointer;
+        margin-right: 10px;
+    }
+    .delete-button:hover {
+        background-color: darkred;
+    }
+    @media (max-width: 768px) {
+        .report-card {
+            padding: 15px;
+        }
+        .report-card h2 {
+            font-size: 1.2em;
+        }
+        .report-card p,
+        .report-card .report-details div,
+        .report-card .user-info div {
+            font-size: 0.9em;
+        }
+        .delete-button {
+            padding: 8px 12px;
+        }
     }
 </style>
 <body>
@@ -57,7 +90,7 @@ $result = $conn->query($sql);
     <?php if ($result->num_rows > 0): ?>
         <?php while ($row = $result->fetch_assoc()): ?>
             <div class="report-card">
-                <h2>Denúncia #<?php echo $row['report_id']; ?></h2>
+                <h2>Denúncia <span class="report-span"> #<?php echo $row['report_id']; ?></span></h2>
                 <p><strong>Razão:</strong> <?php echo $row['reason']; ?></p>
                 <div class="report-details">
                     <div><strong>Data da Denúncia:</strong> <?php echo $row['report_created_at']; ?></div>
@@ -88,3 +121,4 @@ $result = $conn->query($sql);
         }
     }
 </script>
+<?php require_once('../includes/footer.php'); ?>

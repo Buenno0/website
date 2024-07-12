@@ -76,7 +76,5 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["user_name"])) {
     </div>
 </header>
 <script src="/website/includes/script/dropdown.js"></script>
-
-
 </body>
 </html>
