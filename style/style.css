@@ -45,7 +45,7 @@ header {
     display: flex;
     align-items: center;
     background-color: var(--primary);
-    justify-content: end;
+    justify-content: space-between;
 }
 
 .navigation__group {
@@ -79,8 +79,31 @@ header {
     margin-left: 10%;
     width: 65%;
     background-color: white;
+}
 
+.nav-links {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 20px;
+}
 
+.nav-links li {
+    position: relative;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+.nav-links a:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Fundo ligeiramente diferente no hover */
 }
 .form-search {
     display: flex;
@@ -1159,6 +1182,60 @@ img.post-image {
     font-size: 40px;
     font-weight: bold;
     cursor: pointer;
+}
+.account-container {
+    max-width: 90%;
+    margin: 20px auto;
+    padding: 2rem;
+    background-color: var(--gray-light);
+    border: 1px solid var(--gray-borders);
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.account-container:hover {
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.account-welcome {
+    font-family: 'Red Hat Display', sans-serif;
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+}
+
+.account-info {
+    font-size: 1.125rem;
+    color: black;
+    margin-bottom: 0.75rem;
+}
+.delete-account-btn {
+    background-color: var(--error); /* Vermelho */
+    color: var(--text-color); /* Branco */
+    border: 2px solid #CC0000; /* Borda mais escura */
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+.delete-account-btn:hover {
+    background-color: #CC0000; /* Vermelho mais escuro no hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+@media (min-width: 768px) {
+    .account-container {
+        max-width: 80%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .account-container {
+        max-width: 70%;
+    }
 }
 
 @media only screen and (max-width: 768px) {

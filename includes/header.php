@@ -8,8 +8,13 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["user_name"])) {
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
+    <style>
+        .a-menu {
+            color: #000;
+            text-decoration: none;
+        }
+    </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog</title>
@@ -20,15 +25,20 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["user_name"])) {
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="/website/style/style.css">
 </head>
+<body>
 <header>
     <img class="logo" src="/website/assets/logo.png" alt="logo" width="105" height="80">
-    <form class="form-search" action="" method="post">
-        <input type="text" class="search-box" placeholder="Pesquisar">
-        <button style="display: none;">Botão</button>
-    </form>
+    <nav>
+        <ul class="nav-links">
+            <li><a href="/website/index.php">Home</a></li>
+            <li><a href="/website/src/blog.php">Blog</a></li>
+            <li><a href="/website/about.php">Sobre</a></li>
+            <li><a href="/website/contact.php">Contato</a></li>
+            <li><a href="#">Artigos</a></li>
+        </ul>
+    </nav>
 
     <span class="navigation__group">
         <?php if (isset($id)) : ?>
@@ -40,17 +50,16 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["user_name"])) {
     <div class="dropdown__wrapper hide dropdown__wrapper--fade-in none">
         <div class="dropdown__group">
             <div class="user-name"><?=$name?></div>
-            
             <div class="email"><?=$email?></div>
         </div>
         <hr class="divider">
         <nav>
             <ul>
                 <li>
-                    <img src="/website/assets/profile.svg" alt="Profile"> Minha Conta
+                    <img src="/website/assets/profile.svg" alt="Profile"><a class="a-menu" href="/website/users/my_account.php"> Minha Conta</a>
                 </li>
                 <li>
-                    <img src="/website/assets/settings.svg" alt="Settings"> Ajustes da Conta
+                    <img src="/website/assets/settings.svg" alt="Settings"><a class="a-menu" href="test.php"> Ajustes da Conta</a>
                 </li>
             </ul>
             <hr class="divider">
@@ -61,14 +70,16 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["user_name"])) {
             </ul>
             <hr class="divider">
             <ul>
-            
                 <li style="color: #E3452F;">
                     <img src="/website/assets/logout.svg" alt="Log Out">
                     <a class="logout" href="/website/users/logout.php">Sair</a> 
                 </li>
-                
             </ul>
         </nav>
     </div>
 </header>
 <script src="/website/includes/script/dropdown.js"></script>
+
+
+</body>
+</html>
