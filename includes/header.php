@@ -31,7 +31,6 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["user_name"])) {
             <li><a href="/website/src/blog.php">Blog</a></li>
             <li><a href="/website/about.php">Sobre</a></li>
             <li><a href="/website/contact.php">Contato</a></li>
-            <li><a href="#">Artigos</a></li>
         </ul>
     </nav>
 
@@ -55,7 +54,7 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["user_name"])) {
                 </li>
                 <?php if ($user_type == 'adm') : ?>
                     <li>
-                        <img src="/website/assets/settings.svg" alt="Settings"><a class="a-menu" href="/website/admin/adm_dashboard.php"> Admnistração</a>
+                        <img src="/website/assets/settings.svg" alt="Settings"><a class="a-menu" href="/website/admin/adm_dashboard.php"> Administração</a>
                     </li>
                 <?php endif; ?>
             </ul>
