@@ -67,8 +67,5 @@ if (!$conn) {
 
 ![Blog](assets/blog_smartphone.png)
 
-## Contribuição
-Se você deseja contribuir com o projeto, por favor, siga as diretrizes de contribuição e envie um pull request.
-
 ## Licença
 Este projeto está licenciado sob a licença MIT. 
