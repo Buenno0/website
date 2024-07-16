@@ -49,7 +49,7 @@ Bem-vindo ao projeto Diálogo Inter-Religioso! Este site foi criado com o objeti
 
 2. Configure o banco de dados MySQL:
 
-- Crie um banco de dados e importe o arquivo db_site.sql.
+- Crie um banco de dados chamado **db_site** e importe o arquivo db_site.sql.
 - Configure o arquivo de conexão com o banco de dados (config.php):
 
 ```php
