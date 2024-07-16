@@ -33,19 +33,15 @@ Bem-vindo ao projeto Diálogo Inter-Religioso! Este site foi criado com o objeti
 
 - `index.php`: Página inicial do site.
 - `login.php`: Página de login.
-- `register.php`: Página de registro de novos usuários.
 - `blog.php`: Página principal do blog.
-- `post.php`: Página para criar novas postagens.
-- `comment.php`: Página para comentar em postagens.
-- `report.php`: Página para denunciar conteúdos.
-- `upload.php`: Página para upload de fotos.
 
 ## Instalação
 
 1. Clone este repositório:
 
-- git clone https://github.com/seu-usuario/seu-repositorio.git
-
+```git
+- git clone https://github.com/Buenno0/website.git
+```
 
 2. Configure o banco de dados MySQL:
 
@@ -67,11 +63,12 @@ if (!$conn) {
 
 ![HomePage](assets/home_smartphone.png)
 
+![Blog](assets/blog.png)
 
+![Blog](assets/blog_smartphone.png)
 
-
-Contribuição
+## Contribuição
 Se você deseja contribuir com o projeto, por favor, siga as diretrizes de contribuição e envie um pull request.
 
-Licença
-Este projeto está licenciado sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
+## Licença
+Este projeto está licenciado sob a licença MIT. 
