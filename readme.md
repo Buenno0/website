@@ -59,6 +59,7 @@ if (!$conn) {
   die("Connection failed: " . mysqli_connect_error());
 } 
 ?>
+```
 
 ## Capturas de Tela
 Home: 
