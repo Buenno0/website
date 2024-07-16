@@ -62,15 +62,10 @@ if (!$conn) {
 ```
 
 ## Capturas de Tela
-Home: 
-![HomePage](assets/comment.svg)
 
-Questionário: 
-Blog: 
-Postagem: 
-Comentário: 
-Denúncia: 
-Upload de Foto: ![Upload de Foto](Upload de Foto)
+![HomePage](assets/home.png)
+
+
 Contribuição
 Se você deseja contribuir com o projeto, por favor, siga as diretrizes de contribuição e envie um pull request.
 
