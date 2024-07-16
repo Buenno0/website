@@ -65,6 +65,10 @@ if (!$conn) {
 
 ![HomePage](assets/home.png)
 
+![HomePage](assets/home_smartphone.png.png)
+
+
+
 
 Contribuição
 Se você deseja contribuir com o projeto, por favor, siga as diretrizes de contribuição e envie um pull request.
