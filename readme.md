@@ -63,6 +63,8 @@ if (!$conn) {
 
 ## Capturas de Tela
 Home: 
+![HomePage](assets/comment.svg)
+
 Questionário: 
 Blog: 
 Postagem: 
