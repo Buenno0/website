@@ -65,7 +65,7 @@ if (!$conn) {
 
 ![HomePage](assets/home.png)
 
-![HomePage](assets/home_smartphone.png.png)
+![HomePage](assets/home_smartphone.png)
 
 
 
