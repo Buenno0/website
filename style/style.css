@@ -1231,7 +1231,237 @@ img.post-image {
     color: var(--gray-dark);
 }
 
+/* Basic table styling */
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+}
 
+.user-table th, .user-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.user-table th {
+    background-color: #f4f4f4;
+}
+
+/* Action button styling */
+.action-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.action-button.demote {
+    background-color: #dc3545;
+}
+
+.action-button:hover {
+    opacity: 0.9;
+}
+
+.action-button.demote:hover {
+    opacity: 0.9;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .user-table, .user-table thead, .user-table tbody, .user-table th, .user-table td, .user-table tr {
+        display: block;
+        font-size: small;
+    }
+
+    .user-table thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .user-table tr {
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+    }
+
+    .user-table td {
+        border: none;
+        border-bottom: 1px solid #ddd;
+        position: relative;
+        padding-left: 50%;
+        text-align: left;
+    }
+
+    .user-table td:before {
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        transform: translateY(-50%);
+        white-space: nowrap;
+        font-weight: bold;
+    }
+
+    .user-table td:nth-of-type(1):before { content: "Nome de Usuário"; }
+    .user-table td:nth-of-type(2):before { content: "Email"; }
+    .user-table td:nth-of-type(3):before { content: "Data de Criação"; }
+    .user-table td:nth-of-type(4):before { content: "Tipo de Usuário"; }
+    .user-table td:nth-of-type(5):before { content: "Quantidade de Posts"; }
+    .user-table td:nth-of-type(6):before { content: "Quantidade de Comentários"; }
+    .user-table td:nth-of-type(7):before { content: "Quantidade de Posts com Denúncia"; }
+    .user-table td:nth-of-type(8):before { content: "Ações"; }
+}
+
+@media screen and (max-width: 480px) {
+    .action-button {
+        padding: 3px 7px;
+        font-size: 12px;
+    }
+}
+
+
+  /* Estilo para a barra de tarefas */
+  .task-bar {
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.task-bar a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+.task-bar a:hover {
+    color: #007bff;
+}
+/* Estilo para os relatórios e outros elementos */
+.report-span {
+    color: var(--error);
+}
+.report-card {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.report-card h2 {
+    margin-bottom: 15px;
+    color: #333;
+}
+.report-card p,
+.report-card .report-details div,
+.report-card .user-info div {
+    margin-bottom: 15px;
+    color: #666;
+}
+.report-details div,
+.user-info div {
+    padding: 5px 0;
+}
+.button-container {
+    margin-top: 20px;
+}
+.delete-button {
+    background-color: var(--error);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+.delete-button:hover {
+    background-color: darkred;
+}
+.post-images img {
+    max-width: 57vh;
+    height: auto;
+    display: block;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+/* The Modal (background) */
+.custom-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.9);
+}
+/* Modal Content (image) */
+.custom-modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+/* Caption of Modal Image */
+#customCaption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
+}
+/* Add Animation */
+@-webkit-keyframes zoom {
+    from {transform:scale(0)} 
+    to {transform:scale(1)}
+}
+@keyframes zoom {
+    from {transform:scale(0.1)} 
+    to {transform:scale(1)}
+}
+/* The Close Button */
+.custom-close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.custom-close:hover,
+.custom-close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+@media (max-width: 768px) {
+    .report-card {
+        padding: 15px;
+    }
+    .report-card h2 {
+        font-size: 1.2em;
+    }
+    .report-card p,
+    .report-card .report-details div,
+    .report-card .user-info div {
+        font-size: 0.9em;
+    }
+    .delete-button {
+        padding: 8px 12px;
+    }
+}
 
 @media (min-width: 768px) {
     .account-container {
@@ -1324,6 +1554,3 @@ img.post-image {
         margin-top: 1%;
     }
 }
-
-
-
