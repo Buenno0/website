@@ -1369,7 +1369,7 @@ img.post-image {
 .button-container {
     margin-top: 20px;
 }
-.delete-button {
+.delete-post {
     background-color: var(--error);
     color: white;
     border: none;
@@ -1378,7 +1378,7 @@ img.post-image {
     cursor: pointer;
     margin-right: 10px;
 }
-.delete-button:hover {
+.delete-post:hover {
     background-color: darkred;
 }
 .post-images img {

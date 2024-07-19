@@ -21,6 +21,7 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["user_name"])) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/website/style/style.css">
+    <link rel="icon" href="/website/favicon.ico" type="image/x-icon">
 </head>
 <body>
 <header>

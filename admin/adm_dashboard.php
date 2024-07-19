@@ -61,8 +61,8 @@ $result = $conn->query($sql);
                     <?php endwhile; ?>
                 </div>
                 <div class="button-container">
-                    <button class="delete-post-button delete-button" data-post-id="<?php echo $row['post_id']; ?>">Excluir Postagem</button>
-                    <button class="delete-user-button delete-button" data-user-id="<?php echo $row['user_id']; ?>">Deletar Usuário</button>
+                    <button class="delete-post-button delete-post" data-post-id="<?php echo $row['post_id']; ?>">Excluir Postagem</button>
+                    <button class="delete-user-button delete-post" data-user-id="<?php echo $row['user_id']; ?>">Deletar Usuário</button>
                 </div>
             </div>
         <?php endwhile; ?>
@@ -98,7 +98,7 @@ $(document).ready(function() {
                 }
             });
         }
-    });
+    })
 
     $('.delete-user-button').on('click', function() {
         var userId = $(this).data('user-id');
