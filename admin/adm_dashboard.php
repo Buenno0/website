@@ -28,7 +28,7 @@ $sql = "SELECT
 $result = $conn->query($sql);
 ?>
 <style>
-    .report-span{
+    .report-span {
         color: var(--error);
     }
     .report-card {
@@ -104,8 +104,8 @@ $result = $conn->query($sql);
                     <div><strong>Email do Usuário:</strong> <?php echo $row['user_email']; ?></div>
                 </div>
                 <div class="button-container">
-                    <button class="delete-button" onclick="confirmDeletion('post', <?php echo $row['post_id']; ?>)">Excluir Postagem</button>
-                    <button class="delete-button" onclick="confirmDeletion('user', <?php echo $row['user_id']; ?>)">Deletar Usuário</button>
+                    <button class="delete-post-button delete-button" data-post-id="<?php echo $row['post_id']; ?>">Excluir Postagem</button>
+                    <button class="delete-user-button delete-button" data-user-id="<?php echo $row['user_id']; ?>">Deletar Usuário</button>
                 </div>
             </div>
         <?php endwhile; ?>
@@ -113,12 +113,53 @@ $result = $conn->query($sql);
         <p>Nenhuma denúncia encontrada.</p>
     <?php endif; ?>
 </body>
-<script>
-    function confirmDeletion(type, id) {
-        let message = type === 'post' ? 'Tem certeza que deseja excluir esta postagem?' : 'Tem certeza que deseja deletar este usuário?';
-        if (confirm(message)) {
-            window.location.href = `delete.php?type=${type}&id=${id}`;
-        }
-    }
-</script>
 <?php require_once('../includes/footer.php'); ?>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+$(document).ready(function() {
+    $('.delete-post-button').on('click', function() {
+        var postId = $(this).data('post-id');
+        var card = $(this).closest('.report-card');
+
+        if (confirm('Você tem certeza que deseja excluir esta postagem?')) {
+            $.ajax({
+                url: 'delete_post.php',
+                type: 'POST',
+                data: { post_id: postId },
+                success: function(response) {
+                    var res = JSON.parse(response);
+                    if (res.status === 'success') {
+                        card.remove();
+                    } else {
+                        alert(res.message);
+                    }
+                }
+            });
+        }
+    });
+
+    $('.delete-user-button').on('click', function() {
+        var userId = $(this).data('user-id');
+        var card = $(this).closest('.report-card');
+
+        if (confirm('Você tem certeza que deseja deletar este usuário?')) {
+            $.ajax({
+                url: 'delete_user.php',
+                type: 'POST',
+                data: { user_id: userId },
+                success: function(response) {
+                    var res = JSON.parse(response);
+                    if (res.status === 'success') {
+                        card.remove();
+                    } else {
+                        alert(res.message);
+                    }
+                }
+            });
+        }
+    });
+});
+
+
+</script>
