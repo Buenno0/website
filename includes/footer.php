@@ -25,13 +25,13 @@
             <h3>Recursos</h3>
             <ul>
                 <li>
-                    <a href="#" title="Artigos">Artigos</a>
+                    <a href="" title="Artigos">Artigos</a>
                 </li>
                 <li>
-                    <a href="#" title="Livros">Livros</a>
+                    <a href="https://legiaopublicacoes.com.br/" target="_blank" title="Livros">Livros</a>
                 </li>
                 <li>
-                    <a href="#" title="Músicas">Músicas</a>
+                    <a href="https://open.spotify.com/playlist/0l2rKnHAU1kuMLX9XrcaRd?si=e495dd847dfc45b8" target="_blank" title="Músicas">Músicas</a>
                 </li>
                 <li>
                     <a href="#" title="Eventos">Eventos</a>
@@ -42,7 +42,7 @@
             <h3>Comunidade</h3>
             <ul>
                 <li>
-                    <a href="#" title="Fórum">Fórum</a>
+                    <a href="https://umbandalivre.forumeiros.com/" target="_blank" title="Fórum">Fórum</a>
                 </li>
                 <li>
                     <a href="#" title="Grupos">Grupos</a>
