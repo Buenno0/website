@@ -28,6 +28,25 @@ $sql = "SELECT
 $result = $conn->query($sql);
 ?>
 <style>
+    /* Estilo para a barra de tarefas */
+    .task-bar {
+        background-color: #f4f4f4;
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    .task-bar a {
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+    }
+    .task-bar a:hover {
+        color: #007bff;
+    }
+    /* Estilo para os relatórios e outros elementos */
     .report-span {
         color: var(--error);
     }
@@ -68,6 +87,71 @@ $result = $conn->query($sql);
     .delete-button:hover {
         background-color: darkred;
     }
+    .post-images img {
+        max-width: 57vh;
+        height: auto;
+        display: block;
+        margin: 10px 0;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+    /* The Modal (background) */
+    .custom-modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        padding-top: 100px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0,0.9);
+    }
+    /* Modal Content (image) */
+    .custom-modal-content {
+        margin: auto;
+        display: block;
+        width: 80%;
+        max-width: 700px;
+    }
+    /* Caption of Modal Image */
+    #customCaption {
+        margin: auto;
+        display: block;
+        width: 80%;
+        max-width: 700px;
+        text-align: center;
+        color: #ccc;
+        padding: 10px 0;
+        height: 150px;
+    }
+    /* Add Animation */
+    @-webkit-keyframes zoom {
+        from {transform:scale(0)} 
+        to {transform:scale(1)}
+    }
+    @keyframes zoom {
+        from {transform:scale(0.1)} 
+        to {transform:scale(1)}
+    }
+    /* The Close Button */
+    .custom-close {
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        color: #f1f1f1;
+        font-size: 40px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+    .custom-close:hover,
+    .custom-close:focus {
+        color: #bbb;
+        text-decoration: none;
+        cursor: pointer;
+    }
     @media (max-width: 768px) {
         .report-card {
             padding: 15px;
@@ -87,7 +171,9 @@ $result = $conn->query($sql);
 </style>
 <body>
     <h1>Dashboard do Administrador</h1>
-    <?php if ($result->num_rows > 0): ?>
+    <?php
+     require_once('header_adm.php');
+     if ($result->num_rows > 0): ?>
         <?php while ($row = $result->fetch_assoc()): ?>
             <div class="report-card">
                 <h2>Denúncia <span class="report-span"> #<?php echo $row['report_id']; ?></span></h2>
@@ -103,6 +189,19 @@ $result = $conn->query($sql);
                     <div><strong>Nome do Usuário:</strong> <?php echo $row['user_name']; ?></div>
                     <div><strong>Email do Usuário:</strong> <?php echo $row['user_email']; ?></div>
                 </div>
+                <div class="post-images">
+                    <?php
+                    // Consulta para obter as imagens relacionadas ao post
+                    $post_id = $row['post_id'];
+                    $sqlImages = "SELECT image_path FROM post_image WHERE post_id = ?";
+                    $stmtImages = $conn->prepare($sqlImages);
+                    $stmtImages->bind_param('i', $post_id);
+                    $stmtImages->execute();
+                    $resultImages = $stmtImages->get_result();
+                    while ($imageRow = $resultImages->fetch_assoc()): ?>
+                        <img src="../src/<?php echo $imageRow['image_path']; ?>" alt="Imagem do Post">
+                    <?php endwhile; ?>
+                </div>
                 <div class="button-container">
                     <button class="delete-post-button delete-button" data-post-id="<?php echo $row['post_id']; ?>">Excluir Postagem</button>
                     <button class="delete-user-button delete-button" data-user-id="<?php echo $row['user_id']; ?>">Deletar Usuário</button>
@@ -112,11 +211,15 @@ $result = $conn->query($sql);
     <?php else: ?>
         <p>Nenhuma denúncia encontrada.</p>
     <?php endif; ?>
+    <div id="customImageModal" class="custom-modal">
+        <span class="custom-close">&times;</span>
+        <img class="custom-modal-content" id="customImg01">
+        <div id="customCaption"></div>
+    </div>
 </body>
 <?php require_once('../includes/footer.php'); ?>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-
 $(document).ready(function() {
     $('.delete-post-button').on('click', function() {
         var postId = $(this).data('post-id');
@@ -159,7 +262,21 @@ $(document).ready(function() {
             });
         }
     });
+
+    // Modal functionality
+    var modal = document.getElementById("customImageModal");
+    var modalImg = document.getElementById("customImg01");
+    var captionText = document.getElementById("customCaption");
+
+    $('.post-images img').on('click', function() {
+        modal.style.display = "block";
+        modalImg.src = this.src;
+        captionText.innerHTML = this.alt;
+    });
+
+    var span = document.getElementsByClassName("custom-close")[0];
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
 });
-
-
 </script>
