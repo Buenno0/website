@@ -1440,12 +1440,7 @@ img.post-image {
     font-weight: bold;
     transition: 0.3s;
 }
-.custom-close:hover,
-.custom-close:focus {
-    color: #bbb;
-    text-decoration: none;
-    cursor: pointer;
-}
+
 @media (max-width: 768px) {
     .report-card {
         padding: 15px;

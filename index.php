@@ -21,7 +21,7 @@ require 'includes/header.php';
         }
 
         #nav-button {
-            background-color: rgba(16, 185, 129, 1);
+            background-color: var(--primary);
             color: #ffffff;
             padding: 10px 20px;
             border: none;
@@ -29,6 +29,12 @@ require 'includes/header.php';
             cursor: pointer;
             display: flex;
             align-items: center;
+            margin-right: 7%;
+        }
+
+        #nav-button:hover {
+            background-color: var(--white);
+            color: var(--primary);
         }
 
         #nav-button .material-symbols-outlined {
@@ -39,7 +45,7 @@ require 'includes/header.php';
         /*content-primeiro*/
         .content-primeiro {
             background-color: rgba(15, 184, 128, 0.084);
-            padding: 10%;
+            padding: 2%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -47,19 +53,6 @@ require 'includes/header.php';
 
         .hero {
             margin-left: 5%;
-        }
-
-        #button {
-            background-color: rgba(15, 184, 128, 0);
-            color: rgba(16, 185, 129, 1);
-            padding: 10px 20px;
-            border: none;
-            border-radius: 32px;
-            cursor: pointer;
-            border: 1px solid rgba(16, 185, 129, 1);
-            display: flex;
-            align-items: center;
-            margin-left: 3%;
         }
 
         .button,
@@ -331,7 +324,7 @@ require 'includes/header.php';
                 </div>
                 <div class="button">
                     <button id="nav-button">Saiba Mais <span class="material-symbols-outlined">arrow_forward</span></button>
-                    <button id="button">Responder <span class="material-symbols-outlined">arrow_forward</span></button>
+                    <button id="nav-button">Responder <span class="material-symbols-outlined">arrow_forward</span></button>
                 </div>
             </div>
             <div class="hero-img">
@@ -370,7 +363,7 @@ require 'includes/header.php';
                         <p>Os Orixás são as forças ancestrais que guiam nossos passos, iluminando o caminho da alma na jornada da vida.</p>
                         <a href="" class="link-p">Leia mais</a>
                     </div>
-                </a>    
+                </a>  
             </div>
         </div>
         
