@@ -1,7 +1,4 @@
 <?php require_once('../includes/header.php'); ?>
-<style>
-/* Seu estilo aqui */
-</style>
 <div class="blog">  
 <aside class="aside">
     <h2>Artigos Recentes</h2>

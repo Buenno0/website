@@ -19,9 +19,9 @@ if (isset($_GET['post_id'])) {
             post.*, 
             user.name AS author_name, 
             user.id AS author_id, 
-            COUNT(comment.id) AS comment_count, 
-            GROUP_CONCAT(post_image.image_path) AS images,
-            GROUP_CONCAT(CONCAT(comment.id, '|', comment.content, '|', comment.created_at, '|', commenter.name) SEPARATOR '||') AS comments
+            COUNT(DISTINCT comment.id) AS comment_count, 
+            GROUP_CONCAT(DISTINCT post_image.image_path) AS images,
+            GROUP_CONCAT(DISTINCT CONCAT(comment.id, '|', comment.content, '|', comment.created_at, '|', commenter.name) SEPARATOR '||') AS comments
         FROM post
         JOIN user ON post.user_id = user.id
         LEFT JOIN comment ON post.id = comment.post_id
@@ -46,43 +46,40 @@ if (isset($_GET['post_id'])) {
         $images = $row['images'] ? explode(',', $row['images']) : [];
         $imageHtml = '';
         if (count($images) > 0) {
-            if (count($images) > 1) {
-                $imageHtml = '<div class="image-carousel">';
-                foreach ($images as $index => $image) {
-                    $imageHtml .= "<div class=\"carousel-item\"><img src=\"{$image}\" class=\"post-image\" data-index=\"{$index}\"></div>";
-                }
-                $imageHtml .= '</div>';
-                $imageHtml .= '<div class="carousel-nav"><button class="prev-btn">❮</button><span class="image-counter"></span><button class="next-btn">❯</button></div>';
-            } else {
-                $imageHtml = "<div class=\"single-image\"><img src=\"{$images[0]}\" class=\"post-image\"></div>";
+            $imageHtml = '<div class="image-column">';
+            foreach ($images as $image) {
+                $imageHtml .= "<div class=\"image-item\"><img src=\"{$image}\" class=\"post-image\"></div>";
             }
-            $imageHtml .= '<div class="image-modal" style="display: none;"><span class="close-modal">&times;</span><img class="modal-content"></div>';
+            $imageHtml .= '</div>';
         }
+        $imageHtml .= '<div class="image-modal" style="display: none;"><span class="close-modal">&times;</span><img class="modal-content"></div>';
 
+        // Processar os comentários
         $commentsHtml = '';
         if ($row['comments']) {
-        $comments = explode('||', $row['comments']);
-        foreach ($comments as $commentData) {
-        list($commentId, $commentContent, $commentCreatedAt, $commenterName) = explode('|', $commentData);
-        $commentTimeMessage = Carbon::parse($commentCreatedAt)->diffForHumans($now);
-        $commentTimeMessage = str_replace('antes', 'atrás', $commentTimeMessage);
-        $commentsHtml .= "
-        <div class=\"comment custom-comment\">
-            <div class=\"comment__avatar custom-comment__avatar\">
-                <img class=\"avatar img\" src=\"../assets/user-profile.svg\">
-            </div>
-            <div class=\"comment__body custom-comment__body\">
-                <div class=\"comment__author custom-comment__author\">
-                    <strong>{$commenterName}</strong>
-                    <time datetime=\"{$commentCreatedAt}\" class=\"post__date\">
-                        {$commentTimeMessage}
-                    </time>
-                </div>
-                <p class=\"p-post\">{$commentContent}</p>
-            </div>
-        </div>";
-    }
-}
+            $comments = explode('||', $row['comments']);
+            foreach ($comments as $commentData) {
+                list($commentId, $commentContent, $commentCreatedAt, $commenterName) = explode('|', $commentData);
+                $commentTimeMessage = Carbon::parse($commentCreatedAt)->diffForHumans($now);
+                $commentTimeMessage = str_replace('antes', 'atrás', $commentTimeMessage);
+                $commentsHtml .= "
+                <div class=\"comment custom-comment\">
+                    <div class=\"comment__avatar custom-comment__avatar\">
+                        <img class=\"avatar img\" src=\"../assets/user-profile.svg\">
+                    </div>
+                    <div class=\"comment__body custom-comment__body\">
+                        <div class=\"comment__author custom-comment__author\">
+                            <strong>{$commenterName}</strong>
+                            <time datetime=\"{$commentCreatedAt}\" class=\"post__date\">
+                                {$commentTimeMessage}
+                            </time>
+                        </div>
+                        <p class=\"p-post\">{$commentContent}</p>
+                    </div>
+                </div>";
+            }
+        }
+
         $is_logged_in = isset($_SESSION['user_id']) ? 'true' : 'false';
         $is_author = $logged_in_user_id == $row['author_id'] ? 'true' : 'false';
 
@@ -241,15 +238,15 @@ $(document).ready(function() {
             var reason = $('#reportReason').val();
 
             $.ajax({
-                url: 'report_post.php',
+                url: 'insert_report.php',
                 type: 'POST',
                 data: {
                     post_id: post_id,
                     reason: reason
                 },
                 success: function(response) {
-                    modal.hide();
                     alert('Denúncia enviada com sucesso!');
+                    modal.hide();
                 },
                 error: function(xhr, status, error) {
                     console.error('Erro ao enviar denúncia:', error);
@@ -257,100 +254,49 @@ $(document).ready(function() {
             });
         });
 
-        // Botão de exclusão
-        $('.delete-button').click(function(e) {
-            e.preventDefault();
-            var post_id = $(this).data('post-id');
-
-            if (confirm('Tem certeza de que deseja excluir esta postagem?')) {
-                $.ajax({
-                    url: 'delete_post.php',
-                    type: 'POST',
-                    data: { post_id: post_id },
-                    success: function(response) {
-                        window.location.href = '/website/src/blog.php';
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Erro ao excluir postagem:', error);
-                    }
-                });
-            }
-        });
-
-        // Inicialização do carrossel de imagens
-        if ($('.image-carousel').length) {
-            $('.image-carousel').each(function() {
-                var $carousel = $(this);
-                var $items = $carousel.find('.carousel-item');
-                var currentIndex = 0;
-
-                function showImage(index) {
-                    $items.hide().eq(index).show();
-                    $carousel.find('.image-counter').text((index + 1) + ' / ' + $items.length);
-                }
-
-                $carousel.find('.prev-btn').click(function() {
-                    currentIndex = (currentIndex === 0) ? $items.length - 1 : currentIndex - 1;
-                    showImage(currentIndex);
-                });
-
-                $carousel.find('.next-btn').click(function() {
-                    currentIndex = (currentIndex === $items.length - 1) ? 0 : currentIndex + 1;
-                    showImage(currentIndex);
-                });
-
-                showImage(currentIndex);
-            });
-        }
-
         // Modal de imagem
-        var modal = $('.image-modal');
-        var modalImg = modal.find('.modal-content');
-        var closeModal = modal.find('.close-modal');
-
         $('.post-image').click(function() {
-            modalImg.attr('src', $(this).attr('src'));
+            var src = $(this).attr('src');
+            var modal = $(this).closest('.post').find('.image-modal');
             modal.show();
+            modal.find('.modal-content').attr('src', src);
         });
 
-        closeModal.click(function() {
+        $('.close-modal').click(function() {
+            var modal = $(this).closest('.image-modal');
             modal.hide();
         });
 
         $(window).click(function(event) {
-            if ($(event.target).is(modal)) {
-                modal.hide();
+            if ($(event.target).hasClass('image-modal')) {
+                $(event.target).hide();
+            }
+        });
+
+        // Botão de apagar
+        $('.delete-button').click(function(e) {
+            e.preventDefault();
+            var postId = $(this).data('post-id');
+            var confirmation = confirm("Tem certeza de que deseja excluir este post?");
+            if (confirmation) {
+                $.ajax({
+                    url: 'delete_post.php',
+                    type: 'POST',
+                    data: {
+                        post_id: postId
+                    },
+                    success: function(response) {
+                        alert('Post excluído com sucesso!');
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Erro ao excluir post:', error);
+                    }
+                });
             }
         });
     }
 
-    // Inicializar características de post na página principal
     initializePostFeatures();
-
-    // Fetch and display single post
-    $('.post__text').on('click', function(e) {
-        e.preventDefault();
-        var postId = $(this).closest('.post').data('post-id');
-        fetchPostById(postId);
-    });
-
-    function fetchPostById(postId) {
-        $.ajax({
-            url: 'get_post_by_id.php',
-            type: 'GET',
-            data: { post_id: postId },
-            success: function(response) {
-                $('#postagens').html(response);
-                // Reinitialize post features for the single post
-                initializePostFeatures();
-            },
-            error: function(xhr, status, error) {
-                console.error('Erro ao buscar postagem:', error);
-            }
-        });
-    }
 });
-
-
 </script>
-

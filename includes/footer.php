@@ -1,5 +1,4 @@
 
-
         <footer>
         <div class="footer-line"></div>
 <div class="footer-wrapper">
@@ -51,7 +50,7 @@
                     <a href="#" title="Galeria">Galeria</a>
                 </li>
                 <li>
-                    <a href="#" title="Contato">Contato</a>
+                    <a href="/website/pages/contato.php" title="Contato">Contato</a>
                 </li>
             </ul>
         </section>
@@ -79,7 +78,7 @@
 </div>
 
                 <div class="footer-bottom">
-                    <small style="color: white;">© Gabrile Leme & Mateus Bueno. <span id="year"></span>, Todos direitos reservados</small>
+                    <small style="color: white;">© Gabriel Leme & Mateus Bueno. <span id="year"></span>, Todos direitos reservados</small>
                     <span class='social-links'>
                         <a href="#" title="Instagram">
                             <img src="/website/assets/instagram.svg" alt='Instagram'>                       
