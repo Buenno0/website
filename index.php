@@ -77,72 +77,91 @@ require 'includes/header.php';
             margin-bottom: 56px;
         }
 
-        /*content-segundo*/
-        .content-segundo h3 {
-            font-weight: normal;
-            color: rgba(16, 185, 129, 1);
-            position: relative;
-            border-bottom: solid 1px rgba(16, 185, 129, 1);
-        }
+       /*content-segundo*/
+ .content-segundo h3{
+    font-weight: normal;
+    color: rgba(16, 185, 129, 1);
+    position: relative;
+    border-bottom: solid 1px rgba(16, 185, 129, 1);   
+}
+.content-segundo strong{
+    color: rgba(16, 185, 129, 1);
+}
+.content-segundo .conteudo{
 
-        .content-segundo strong {
-            color: rgba(16, 185, 129, 1);
-        }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2%;
+    width: 400px;
+    
+}
 
-        .content-segundo .conteudo {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 2%;
-        }
+.conteudos .conteudo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2%;
+  width: 400px;
+  text-align: center; /* Adiciona centralização do texto */
+}
 
-        .conteudos .conteudo h2 {
-            margin: 0;
-            padding: 0;
-            margin-top: 2%;
-            margin-bottom: 10px;
-            text-align: center;
-        }
+.conteudos .conteudo img {
+  margin-top: 10px; /* Espaçamento entre o nome e a imagem */
+}
 
-        .conteudos .conteudo p {
-            color: rgba(107, 114, 128, 1);
-            font-size: 16px;
-            line-height: 1.2em;
-            max-height: 3.6em;
-            overflow: hidden;
-            margin-top: 5%;
-            overflow: hidden;
-            text-align: center;
-        }
+.conteudos .conteudo h2{
+    margin: 0;
+    padding: 0; 
+    margin-top: 2%;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.conteudos .conteudo p{
+    color: rgba(107, 114, 128, 1);
+    font-size: 16px;
+    line-height: 1.2em; /* Ajuste este valor para cerca de 3 vezes o tamanho da fonte */
+    max-height: 3.6em; /* 3 vezes o tamanho da fonte */
+    overflow: hidden;
+    margin-top: 5%;
+    overflow: hidden;
+    text-align: center;
+ }
+.conteudos .conteudo .link-p{
+    text-decoration: none;
+    color: rgba(16, 185, 129, 1);
+    text-transform: uppercase;
+    margin-top: 2%;
+    display: block; 
+}
+.content-segundo .conteudos{
+    display: flex;
+    justify-content:space-between;
+}
+.conteudos .conteudo .links-none{
+    text-decoration: none; /* Remove o sublinhado */
+    color: inherit; /* Mantém a cor do texto padrão */
+    display: block; /* Faz o link ocupar a largura total do pai */
+    
+}
 
-        .conteudos .conteudo .link-p {
-            text-decoration: none;
-            color: rgba(16, 185, 129, 1);
-            text-transform: uppercase;
-            margin-top: 2%;
-            display: block;
-        }
+.h2-orixa{
+    color: var(--primary);
+    font-size: 24px;
+    margin: 0;	
+    padding: 0;
+    text-align: center;
 
-        .content-segundo .conteudos {
-            display: flex;
-            justify-content: space-between;
-        }
+}
 
-        .conteudos .conteudo .links-none {
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-
-        .content-segundo {
-            padding: 0%;
-            padding-left: 5%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 5%;
-        }
-
+.content-segundo{
+    padding:0%;
+    padding-left: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5% 5% 5% 5%;
+}
         /*content-terceiro*/
         .content-terceiro #button {
             background-color: rgba(245, 255, 255, 1);
@@ -156,6 +175,11 @@ require 'includes/header.php';
             align-items: center;
             margin-left: 3%;
             margin-top: 2%;
+        }
+
+        .content-terceiro #button:hover {
+           background-color: var(--white);
+           color: var(--primary);
         }
 
         .content-terceiro h3 {
@@ -174,15 +198,60 @@ require 'includes/header.php';
             text-align: center;
         }
 
-        .content-terceiro {
-            background: rgba(16, 185, 129, 0.8);
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-            padding: 5%;
-            padding-left: 5%;
-            padding-right: 5%;
-        }
+        
+        /* content-terceiro */
+.content-terceiro {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.carousel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-item {
+    min-width: 100%;
+    box-sizing: border-box;
+    padding: 5%;
+    background: rgba(16, 185, 129, 0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.carousel-item h3 {
+    font-size: 48px;
+    color: rgba(255, 255, 255, 1);
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.carousel-item p {
+    margin-top: 2%;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 1);
+    padding: 0;
+    text-align: center;
+    margin-bottom: 5%;
+}
+
+.carousel-item #button {
+    background-color: rgba(245, 255, 255, 1);
+    color: rgba(16, 185, 129, 1);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 32px;
+    cursor: pointer;
+    border: 1px solid rgba(245, 255, 255, 1);
+    display: flex;
+    align-items: center;
+    margin-left: 3%;
+    margin-top: 2%;
+}
+
 
         /*content-quarto*/
         .content-quarto .faq h5 {
@@ -245,6 +314,83 @@ require 'includes/header.php';
     justify-content: space-between;
     position: relative;
 }
+.carousel-control-prev, .carousel-control-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 100;
+}
+
+.img--orixa{
+    width: 12vh;
+    height: 12vh;
+    border-radius: 50%;
+    border: solid 1px var(--primary);
+}
+
+.carousel-control-prev {
+    left: 10px;
+}
+
+.carousel-control-next {
+    right: 10px;
+}
+
+.carousel-dots {
+    text-align: center;
+    position: absolute;
+    bottom: 15px;
+    width: 100%;
+}
+
+.carousel-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.carousel-dot.active {
+    background-color: rgba(16, 185, 129, 1);
+}
+
+.image-carousel {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            height: 60vh; /* Tamanho padrão para telas maiores */
+            border-radius: 5px;
+
+        }
+
+        .image-carousel .carousel-images {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .image-carousel .carousel-image {
+            min-width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-carousel .carousel-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px; 
+        }
+
 
 .duvida_img {
     width: 60vh; /* Tamanho padrão para telas maiores */
@@ -322,57 +468,135 @@ require 'includes/header.php';
                     <h1 id="text-content">Conheça a <br><strong>Umbanda</strong></h1>
                     <p>Diversidade espiritual e aunião entre os mundos</p>
                 </div>
+                
                 <div class="button">
                     <button id="nav-button">Saiba Mais <span class="material-symbols-outlined">arrow_forward</span></button>
                     <button id="nav-button">Responder <span class="material-symbols-outlined">arrow_forward</span></button>
                 </div>
+                
             </div>
             <div class="hero-img">
                 <img src="Icons/Hero Image.png" alt="img_principal">
             </div>          
         </div>
+        <div class="image-carousel">
+    <button class="carousel-control-prev">&#10094;</button>
+    <div class="carousel-images">
+        <div class="carousel-image">
+            <img src="assets/umbanda.png" alt="Imagem 1">
+        </div>
+        <div class="carousel-image">
+            <img src="assets/umbanda2.png" alt="Imagem 2">
+        </div>
+        <div class="carousel-image">
+            <img src="assets/umbanda.png" alt="Imagem 3">
+        </div>
+    </div>
+    <button class="carousel-control-next">&#10095;</button>
+    <div class="carousel-dots">
+        <span class="carousel-dot" data-index="0"></span>
+        <span class="carousel-dot" data-index="1"></span>
+        <span class="carousel-dot" data-index="2"></span>
+    </div>
+</div>
 
         <div class="content-segundo">
-            <h3><span>SOBRE</span></h3>
-            <h1>Tradições da <strong>Umbanda</strong></h1>
+            <img src="assets/idea.svg" alt="ideia" class="img--idea">
+            
+            <h3>Conheça os <strong>Orixás</strong></h3>
+          
             <div class="conteudos">
                 <a href="" class="links-none">
                     <div class="conteudo" >
-                        <h2>Orixas</h2>
-                        <p>Os Orixás são as forças ancestrais que guiam nossos passos, iluminando o caminho da alma na jornada da vida.</p>
-                        <a href="" class="link-p">Leia mais</a>
+                        <h2 class="h2-orixa">Oxala</h2>
+                        <img src="assets/oxala.png" alt="oxossi" class="img--orixa">
+                        <p>O grande criador, que traz paz e harmonia.</p>
+
                     </div>
                 </a>
                 <a href="" class="links-none">    
                     <div class="conteudo">
-                        <h2>Orixas</h2>
-                        <p>Os Orixás são as forças ancestrais que guiam nossos passos, iluminando o caminho da alma na jornada da vida.</p>
-                        <a href="" class="link-p">Leia mais</a>
+                        <h2 class="h2-orixa">Yemanjá</h2>
+                        <img src="assets/iemanja.png" alt="oxossi" class="img--orixa">
+                        <p>"Rainha do mar, mãe das águas da vida.</p>
                     </div>
                 </a>
                 <a href="" class="links-none">    
                     <div class="conteudo">
-                        <h2>Orixas</h2>
-                        <p>Os Orixás são as forças ancestrais que guiam nossos passos, iluminando o caminho da alma na jornada da vida.</p>
-                        <a href="" class="link-p">Leia mais</a>
+                        <h2 class="h2-orixa">Ogum</h2>
+                        <img src="assets/ogum.png" alt="oxossi" class="img--orixa">
+                        <p>Guerreiro forte, protetor e abridor de caminhos.</p>
                     </div>
                 </a>
-                <a href="" class="links-none">    
-                    <div class="conteudo">
-                        <h2>Orixas</h2>
-                        <p>Os Orixás são as forças ancestrais que guiam nossos passos, iluminando o caminho da alma na jornada da vida.</p>
-                        <a href="" class="link-p">Leia mais</a>
-                    </div>
-                </a>  
             </div>
+            <div class="conteudos">
+                <a href="orixas.html" class="links-none">
+                    <div class="conteudo" >
+                        <h2 class="h2-orixa">Oxóssi</h2>
+                        <img src="assets/oxossi.webp" alt="oxossi" class="img--orixa">
+                        <p>Senhor das matas, caçador, provedor e reconhecido.</p>
+                    </div>
+                </a>
+                <a href="" class="links-none">    
+                    <div class="conteudo">
+                        <h2 class="h2-orixa">Xangô</h2>
+                        <img src="assets/xango.png" alt="oxossi" class="img--orixa">
+                        <p>Rei da justiça, poderoso e sempre implacável.</p>
+                    </div>
+                </a>
+                <a href="" class="links-none">    
+                    <div class="conteudo">
+                        <h2 class="h2-orixa">Iansã</h2>
+                        <img src="assets/iansa.png" alt="oxossi" class="img--orixa">
+                        <p>Deusa dos ventos, tempestades e das almas.</p>
+                    </div>
+                </a>
+            </div>  
+            <div class="conteudos">
+                <a href="orixas.html" class="links-none">
+                    <div class="conteudo" >
+                        <h2 class="h2-orixa">Oxum</h2>
+                        <img src="assets/oxum.png" alt="oxossi" class="img--orixa">
+                        <p>Deusa do amor, beleza e águas doces.</p>
+                    </div>
+                </a>
+                <a href="" class="links-none">    
+                    <div class="conteudo">
+                        <h2 class="h2-orixa">Obaluaiê</h2>
+                        <img src="assets/obaluae.png" alt="oxossi" class="img--orixa">
+                        <p>Senhor da cura, doenças e guardião das almas.</p>
+                    </div>
+                </a>
+                <a href="" class="links-none">    
+                    <div class="conteudo">
+                        <h2 class="h2-orixa">Nanã</h2>
+                        <img src="assets/nana.png" alt="oxossi" class="img--orixa">
+                        <p>Anciã da sabedoria e da morte, senhora dos pântanos.</p>
+                    </div>
+                </a>
+            </div>    
         </div>
         
         <div class="content-terceiro">
+    <div class="carousel">
+        <div class="carousel-item">
             <h3>Seu olhar sobre a <br>Umbanda</h3>
             <p>Compartilhe sua Experiência e Conhecimento para Enriquecer Nossa Comunidade Espiritual</p>
-            <button id="button">responda<span class="material-symbols-outlined">arrow_forward</span></button>
+            <a href=""><button id="button">responda<span class="material-symbols-outlined">arrow_forward</span></button></a>
+        </div>
+        <div class="carousel-item">
+            <h3>Descubra mais sobre <br>a Umbanda</h3>
+            <p>Explore a diversidade espiritual e a união entre os mundos</p>
+            <a href=""><button id="button">descubra<span class="material-symbols-outlined">arrow_forward</span></button></a>
+        </div>
+        <div class="carousel-item">
+            <h3>Participe da <br>nossa comunidade</h3>
+            <p>Junte-se a nós e compartilhe suas experiências e conhecimentos</p>
+            <a href="src/blog.php"><button id="button">participe<span class="material-symbols-outlined">arrow_forward</span></button></a>
         </div>
 
+    </div>
+</div>
         <div class="content-quarto">
             <img class="duvida_img" src="Icons/duvida.png" alt="">
             <div class="faq">
@@ -408,6 +632,78 @@ require 'includes/footer.php';
 ?>
 <script>
 $(document).ready(function(){
+    let currentImageIndex = 0;
+    const imageItems = $('.carousel-image');
+    const imageItemCount = imageItems.length;
+
+    function updateCarousel() {
+        $('.carousel-images').css('transform', 'translateX(' + (-currentImageIndex * 100) + '%)');
+        $('.carousel-dot').removeClass('active');
+        $('.carousel-dot[data-index="' + currentImageIndex + '"]').addClass('active');
+    }
+
+    function showNextImage() {
+        currentImageIndex = (currentImageIndex + 1) % imageItemCount;
+        updateCarousel();
+    }
+
+    function showPrevImage() {
+        currentImageIndex = (currentImageIndex - 1 + imageItemCount) % imageItemCount;
+        updateCarousel();
+    }
+
+    let imageSlideInterval = setInterval(showNextImage, 2500); // Change slide every 2.5 seconds
+
+    $('.image-carousel').hover(
+        function() {
+            clearInterval(imageSlideInterval);
+        },
+        function() {
+            imageSlideInterval = setInterval(showNextImage, 2500);
+        }
+    );
+
+    $('.carousel-control-next').click(function() {
+        clearInterval(imageSlideInterval);
+        showNextImage();
+        imageSlideInterval = setInterval(showNextImage, 2500);
+    });
+
+    $('.carousel-control-prev').click(function() {
+        clearInterval(imageSlideInterval);
+        showPrevImage();
+        imageSlideInterval = setInterval(showNextImage, 2500);
+    });
+
+    $('.carousel-dot').click(function() {
+        clearInterval(imageSlideInterval);
+        currentImageIndex = $(this).data('index');
+        updateCarousel();
+        imageSlideInterval = setInterval(showNextImage, 2500);
+    });
+
+    updateCarousel(); // Set the initial active dot
+
+    let currentIndex = 0;
+    const items = $('.carousel-item');
+    const itemCount = items.length;
+
+    function showNextItem() {
+        currentIndex = (currentIndex + 1) % itemCount;
+        $('.carousel').css('transform', 'translateX(' + (-currentIndex * 100) + '%)');
+    }
+
+    let slideInterval = setInterval(showNextItem, 2500); // Change slide every 2.5 seconds
+
+    $('.content-terceiro').hover(
+        function() {
+            clearInterval(slideInterval);
+        },
+        function() {
+            slideInterval = setInterval(showNextItem, 2500);
+        }
+    );
+
     $(".pergunta h4 a").click(function(event) {
         event.preventDefault();
         var $this = $(this);
@@ -418,11 +714,10 @@ $(document).ready(function(){
 
         // Toggle the arrow icon
         var $icon = $this.find('.material-symbols-outlined');
-        if ($icon.text() === "arrow_drop_up") {
-            $icon.text("arrow_drop_down");
-        } else {
-            $icon.text("arrow_drop_up");
-        }
+        $icon.text($icon.text() === "arrow_drop_up" ? "arrow_drop_down" : "arrow_drop_up");
     });
+
+    updateCarousel(); // Initialize the carousel
 });
+
 </script>
