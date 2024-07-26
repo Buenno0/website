@@ -25,7 +25,7 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["user_name"])) {
 </head>
 <body>
 <header>
-    <a href="../index.php"><img class="logo" src="/website/assets/logo.png" alt="logo" width="105" height="80"></a>
+    <a href="../website/index.php"><img class="logo" src="/website/assets/logo.png" alt="logo" width="105" height="80"></a>
     <nav>
         <ul class="nav-links">
             <li><a href="/website/index.php">Home</a></li>

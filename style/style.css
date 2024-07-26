@@ -1607,3 +1607,92 @@ img.post-image {
     font-size: 14px;
     color: #777;
 }
+
+.tcc-contact-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.tcc-info-section {
+    margin: 20px 0;
+    
+}
+
+.tcc-info-section h2 {
+    margin-bottom: 10px;
+    color: var(--primary);
+}
+
+.tcc-info-section p {
+    margin: 5px 0;
+}
+
+.tcc-footer-note {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 14px;
+    color: #777;
+}
+
+.tcc-github-link img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.tcc-github-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.tcc-github-link a:hover {
+    text-decoration: underline;
+}
+
+.tcc-pdf-link {
+margin-top: 20px;
+display: flex;
+align-items: center; 
+}
+
+.tcc-pdf-link img {
+margin-right: 10px;
+}
+
+.tcc-pdf-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.tcc-pdf-link a:hover {
+    text-decoration: underline;
+}
+
+.tcc-tech-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.tcc-tech-list li {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+}
+
+.tcc-tech-list img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+.spn-sobre{
+    color: var(--primary);
+}
+
+
