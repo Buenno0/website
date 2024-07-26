@@ -1549,4 +1549,61 @@ img.post-image {
         margin-top: 1%;
     }
 }
+.contact-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
+.developer-profile {
+    display: flex;
+    align-items: center;
+    margin: 40px 0;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.developer-profile img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+.h1-conato{
+    color: var(--primary);
+}   
+
+.developer-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.developer-profile h2 {
+    margin: 0 0 10px;
+    color: var(--primary);
+}
+
+.developer-profile p {
+    margin: 5px 0;
+}
+
+.developer-profile a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.developer-profile a:hover {
+    text-decoration: underline;
+}
+
+.footer-note {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 14px;
+    color: #777;
+}
