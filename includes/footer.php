@@ -7,25 +7,8 @@
             <img class="logo" src="/website/assets/logo.png" alt="logo Umbanda" width="90" height="90">
         </section>
         <section>
-            <h3>Sobre a Umbanda</h3>
-            <ul>
-                <li>
-                    <a href="#" title="História">História</a>
-                </li>
-                <li>
-                    <a href="#" title="Princípios">Princípios</a>
-                </li>
-                <li>
-                    <a href="#" title="Entidades">Entidades</a>
-                </li>
-            </ul>
-        </section>
-        <section>
             <h3>Recursos</h3>
             <ul>
-                <li>
-                    <a href="" title="Artigos">Artigos</a>
-                </li>
                 <li>
                     <a href="https://legiaopublicacoes.com.br/" target="_blank" title="Livros">Livros</a>
                 </li>
@@ -45,9 +28,6 @@
                 </li>
                 <li>
                     <a href="#" title="Grupos">Grupos</a>
-                </li>
-                <li>
-                    <a href="#" title="Galeria">Galeria</a>
                 </li>
                 <li>
                     <a href="/website/pages/contato.php" title="Contato">Contato</a>
