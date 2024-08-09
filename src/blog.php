@@ -1,14 +1,16 @@
 <?php require_once('../includes/header.php'); ?>
 <div class="blog">  
 <aside class="aside">
-    <h2>Artigos Recentes</h2>
+    <h2>O que você encontrará aqui:</h2>
     <ul>
-        <li><a href="#">10 Práticas Essenciais na Umbanda</a></li>
-        <li><a href="#">A Importância dos Orixás na Umbanda</a></li>
-        <li><a href="#">Como Preparar uma Firmeza na Umbanda</a></li>
-    <hr>
+        <li><a href="#">Entendendo a Sabedoria Ancestral da Umbanda</a></li>
+        <li><a href="#">Mitos e Verdades sobre a Umbanda</a></li>
+        <li><a href="#">Depoimentos e Histórias de Vida</a></li>
     </ul>
+    <hr>
 </aside>
+
+
     <div class="discussion">
     <?php if (isset($_SESSION['user_id'])): ?>
     <div class="discussion__header">
@@ -32,14 +34,17 @@
 <div class="discussion__posts" id="postagens"></div>
         <div class="discussion__posts" id="postagens"></div>
 </div>
-    <aside class="aside">
-    <h2>Recursos Recomendados</h2>
+<aside class="aside">
+    <h2>Regras do Blog</h2>
     <ul>
-        <li><a href="https://madras.com.br/pdf/iniciacao-umbanda.pdf">Livro: Iniciacão á Umbanda</a></li>
-        <li><a href="#">Vídeo: Introdução aos Orixás</a></li>
-        <li><a href="#">Notícia: Celebração de Ogum no Terreiro X</a></li>
+        <li><a href="">Respeito mútuo: Comentários desrespeitosos ou ofensivos não serão tolerados.</a></li>
+        <li><a href="">Foco no tema: Mantenha os comentários e postagens relacionados à Umbanda e temas correlatos.</a></li>
+        <li><a href="">Não compartilhe informações pessoais: Preserve sua privacidade e a dos outros usuários.</a></li>
+        <li><a href="">Evite spam: Não faça postagens repetitivas ou com conteúdo promocional.</a></li>
+        <li><a href="">Seja construtivo: Contribua para o diálogo de forma positiva e com respeito às diversas crenças.</a></li>
     </ul>
 </aside>
+
 <div id="rulesModal" class="modal">
     <div class="modal-content-rules">
         <span class="close">&times;</span>

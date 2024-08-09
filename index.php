@@ -13,11 +13,11 @@ require 'includes/header.php';
                 </div>                
                 <div class="button">
                     <button id="nav-button">Saiba Mais <span class="material-symbols-outlined">arrow_forward</span></button>
-                    <button id="nav-button">Responder <span class="material-symbols-outlined">arrow_forward</span></button>
+                    <a href="https://bit.ly/questao-teste"><button id="nav-button">Responder <span class="material-symbols-outlined">arrow_forward</span></button></a>
                 </div>       
             </div>
             <div class="hero-img">
-                <img src="Icons/Hero Image.png" alt="img_principal">
+                <img class="img-main" src="Icons/Hero Image.png" alt="img_principal">
             </div>          
         </div>
         <div class="image-carousel">
@@ -118,19 +118,18 @@ require 'includes/header.php';
         <div class="carousel-banner">
             <h3>Seu olhar sobre a <br>Umbanda</h3>
             <p>Compartilhe sua Experiência e Conhecimento para Enriquecer Nossa Comunidade Espiritual</p>
-            <a href=""><button id="button">responda<span class="material-symbols-outlined">arrow_forward</span></button></a>
+            <a href="https://bit.ly/questao-teste"><button id="button">responda<span class="material-symbols-outlined">arrow_forward</span></button></a>
         </div>
         <div class="carousel-banner">
             <h3>Descubra mais sobre <br>a Umbanda</h3>
             <p>Explore a diversidade espiritual e a união entre os mundos</p>
-            <a href=""><button id="button">descubra<span class="material-symbols-outlined">arrow_forward</span></button></a>
+            <a href="src/blog.php"><button id="button">descubra<span class="material-symbols-outlined">arrow_forward</span></button></a>
         </div>
         <div class="carousel-banner">
             <h3>Participe da <br>nossa comunidade</h3>
             <p>Junte-se a nós e compartilhe suas experiências e conhecimentos</p>
             <a href="src/blog.php"><button id="button">participe<span class="material-symbols-outlined">arrow_forward</span></button></a>
         </div>
-
     </div>
 </div>
         <div class="content-quarto">

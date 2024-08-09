@@ -31,7 +31,6 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["user_name"])) {
             <li><a href="/website/index.php">Home</a></li>
             <li><a href="/website/src/blog.php">Blog</a></li>
             <li><a href="/website/pages/sobre.php">Sobre</a></li>
-            <li><a href="/website/pages/contato.php">Contato</a></li>
         </ul>
     </nav>
 
