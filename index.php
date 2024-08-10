@@ -13,7 +13,7 @@ require 'includes/header.php';
                 </div>                
                 <div class="button">
                     <button id="nav-button">Saiba Mais <span class="material-symbols-outlined">arrow_forward</span></button>
-                    <a href="https://bit.ly/questao-umbanda"><button id="nav-button">Responder <span class="material-symbols-outlined">arrow_forward</span></button></a>
+                    <a href="https://bit.ly/questã o-umbanda"><button id="nav-button">Responder <span class="material-symbols-outlined">arrow_forward</span></button></a>
                 </div>       
             </div>
             <div class="hero-img">
@@ -118,7 +118,7 @@ require 'includes/header.php';
         <div class="carousel-banner">
             <h3>Seu olhar sobre a <br>Umbanda</h3>
             <p>Compartilhe sua Experiência e Conhecimento para Enriquecer Nossa Comunidade Espiritual</p>
-            <a href="https://bit.ly/questao-umbanda"><button id="button">responda<span class="material-symbols-outlined">arrow_forward</span></button></a>
+            <a href="https://bit.ly/questão-umbanda"><button id="button">responda<span class="material-symbols-outlined">arrow_forward</span></button></a>
         </div>
         <div class="carousel-banner">
             <h3>Descubra mais sobre <br>a Umbanda</h3>
